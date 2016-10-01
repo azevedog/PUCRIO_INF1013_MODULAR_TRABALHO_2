@@ -1,14 +1,11 @@
-#if ! defined( LISTA_ )
-#define LISTA_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: LIS  Lista duplamente encadeada
+*  $MCD Módulo de definição: PEC Peça de um jogo de tabuleiro
 *
-*  Arquivo gerado:              LISTA.h
-*  Letras identificadoras:      LIS
+*  Arquivo gerado:              PECA.h
+*  Letras identificadoras:      PEC
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*  Nome da base de software:    OpenJogos
 *
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
@@ -50,12 +47,6 @@
 *        de todos os dados nele ancorados.
 *
 ***************************************************************************/
- 
-#if defined( LISTA_OWN )
-   #define LISTA_EXT
-#else
-   #define LISTA_EXT extern
-#endif
 
 /***** Declarações exportadas pelo módulo *****/
 
@@ -338,9 +329,6 @@ typedef struct LIS_tagLista * LIS_tppLista ;
    LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
                                     void * pValor        ) ;
 
-#undef LISTA_EXT
+
 
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
-
-#else
-#endif

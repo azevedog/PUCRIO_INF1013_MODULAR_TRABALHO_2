@@ -3,20 +3,20 @@
 
 [Diretorios]
 
-Nome        =  TesteLista
+Nome        =  TestePeca
 PathDefault =  .
 err         =  .
 
 [Modulos]
-TestLis
-Lista
+TestPec
+Peca
 
 [BuildInicio]
-/OUT:TesteLista.exe
+/OUT:TestePeca.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 
 [BuildFim]
-C:\Modular\arcaboucoteste\TRAB1\Libs\ArcaboucoTeste.lib
+C:\MODULAR_T2\Libs\ArcaboucoTeste.lib
 
 [Fim]

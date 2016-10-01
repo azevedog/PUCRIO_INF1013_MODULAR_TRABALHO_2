@@ -1,22 +1,22 @@
 GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
    LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
 
-Composição do construto: TesteLista.comp
+Composição do construto: TestePeca.comp
 
-   Nome do Construto:           TesteLista
-   Diretório base:              C:\Modular\arcaboucoteste\TRAB1\TRAB1-1
+   Nome do Construto:           TestePeca
+   Diretório base:              C:\MODULAR_T2\TRAB2-3
 
-   Arquivo composição:          TesteLista.comp
+   Arquivo composição:          TestePeca.comp
    Arquivo plataforma:          gmake.parm
 
-   Arquivo diretivas MAKE:      TesteLista.make
-   Arquivo diretivas LINK:      TesteLista.build
-   Arquivo listagem:            TesteLista.list
+   Arquivo diretivas MAKE:      TestePeca.make
+   Arquivo diretivas LINK:      TestePeca.build
+   Arquivo listagem:            TestePeca.list
 
-Módulos do construto: TesteLista.comp
+Módulos do construto: TestePeca.comp
 
-   TestLis.c
-   Lista.c
+   TestPec.c
+   Peca.c
 
 Estatísticas do construto
 
@@ -28,15 +28,7 @@ Estatísticas do construto
    Arquivos de inclusão de que necessita
       TST_Espc.h
    Arquivos em que é incluído
-      TestLis.c
-
-   Estatísticas do arquivo: LISTA.h
-      Total linhas:             346
-      Linhas de código:          35
-      Linhas de comentário:     262
-      Linhas em branco:          49
-   Arquivos em que é incluído
-      Lista.c
+      TestPec.c
 
    Estatísticas do arquivo: LerParm.h
       Total linhas:             291
@@ -44,23 +36,24 @@ Estatísticas do construto
       Linhas de comentário:     188
       Linhas em branco:          67
    Arquivos em que é incluído
-      TestLis.c
+      TestPec.c
 
-   Estatísticas do arquivo: Lista.c
+   Estatísticas do arquivo: PECA.h
+      Total linhas:             334
+      Linhas de código:          25
+      Linhas de comentário:     261
+      Linhas em branco:          48
+   Arquivos em que é incluído
+      Peca.c
+      TestPec.c
+
+   Estatísticas do arquivo: Peca.c
       Total linhas:             561
       Linhas de código:         288
       Linhas de comentário:     137
       Linhas em branco:         154
    Arquivos de inclusão de que necessita
-      LISTA.h
-
-   Estatísticas do arquivo: Lista.h
-      Total linhas:             346
-      Linhas de código:          35
-      Linhas de comentário:     262
-      Linhas em branco:          49
-   Arquivos em que é incluído
-      TestLis.c
+      PECA.h
 
    Estatísticas do arquivo: TST_Espc.h
       Total linhas:             228
@@ -69,9 +62,9 @@ Estatísticas do construto
       Linhas em branco:          20
    Arquivos em que é incluído
       Generico.h
-      TestLis.c
+      TestPec.c
 
-   Estatísticas do arquivo: TestLis.c
+   Estatísticas do arquivo: TestPec.c
       Total linhas:             470
       Linhas de código:         256
       Linhas de comentário:      91
@@ -79,7 +72,7 @@ Estatísticas do construto
    Arquivos de inclusão de que necessita
       Generico.h
       LerParm.h
-      Lista.h
+      PECA.h
       TST_Espc.h
 
 Totais por tipo de arquivo
@@ -99,11 +92,11 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: DEFAULT  Path: .
-         Total linhas do tipo:      1924
-         Linhas de código:           188
-         Linhas de comentário:      1469
-         Linhas em branco:           267
-         Arquivos deste tipo:          5
+         Total linhas do tipo:      1566
+         Linhas de código:           143
+         Linhas de comentário:      1206
+         Linhas em branco:           217
+         Arquivos deste tipo:          4
 
   Tipo: c        Path: .
          Total linhas do tipo:      1031
@@ -112,11 +105,11 @@ Totais por tipo de arquivo
          Linhas em branco:           292
          Arquivos deste tipo:          2
 
-Totais para todo o construto TesteLista
+Totais para todo o construto TestePeca
 
-   Total linhas:              2955
-   Linhas de código:           732
-   Linhas de comentário:      1697
-   Linhas em branco:           559
-   Arquivos processados:         7
+   Total linhas:              2597
+   Linhas de código:           687
+   Linhas de comentário:      1434
+   Linhas em branco:           509
+   Arquivos processados:         6
 

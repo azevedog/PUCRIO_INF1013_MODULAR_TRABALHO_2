@@ -1,7 +1,7 @@
 ##################################################
 ###
-### Diretivas de MAKE para o construto: TesteLista
-### Gerado a partir de: TesteLista.comp
+### Diretivas de MAKE para o construto: TestePeca
+### Gerado a partir de: TestePeca.comp
 ###
 ### ----- Arquivo gerado, NÃO EDITE!!! -----
 ###
@@ -9,7 +9,7 @@
 
 ### Nomes globais
 
-NOME            = TesteLista
+NOME            = TestePeca
 
 
 ### Nomes de paths
@@ -45,7 +45,7 @@ INCLUDE = $(INCLUDE);$(PDEFAULT)
 ### Regras de geração
 
 all : limpa \
-   $(Fobj)\TestLis.obj   $(Fobj)\Lista.obj \
+   $(Fobj)\TestPec.obj   $(Fobj)\Peca.obj \
    Construto
 
 ### Limpar arquivos
@@ -56,26 +56,26 @@ limpa :
 
 ### Dependências de módulos objeto a compilar
 
-$(Fobj)\TestLis.obj :  {$(Pc)}\TestLis.c \
-    {$(PDEFAULT)}Generico.h           {$(PDEFAULT)}LerParm.h            {$(PDEFAULT)}Lista.h              \
+$(Fobj)\TestPec.obj :  {$(Pc)}\TestPec.c \
+    {$(PDEFAULT)}Generico.h           {$(PDEFAULT)}LerParm.h            {$(PDEFAULT)}PECA.h               \
     {$(PDEFAULT)}TST_Espc.h          
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
-$(Fobj)\Lista.obj :  {$(Pc)}\Lista.c \
-    {$(PDEFAULT)}LISTA.h             
+$(Fobj)\Peca.obj :  {$(Pc)}\Peca.c \
+    {$(PDEFAULT)}PECA.h              
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 
 ### Terminação
 
 Construto : \
-   $(Fobj)\TestLis.obj   $(Fobj)\Lista.obj
+   $(Fobj)\TestPec.obj   $(Fobj)\Peca.obj
     cd $(Fobj)
     LINK $(L) @$(NOME).build >> $(Ferr)\$(NOME).err
 
 ##################################################
 ###
-### Fim de diretivas MAKE para o construto: TesteLista
+### Fim de diretivas MAKE para o construto: TestePeca
 ###
 ##################################################
 

@@ -30,7 +30,7 @@
 #include    "Generico.h"
 #include    "LerParm.h"
 
-#include    "Lista.h"
+#include    "PECA.h"
 
 
 static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;

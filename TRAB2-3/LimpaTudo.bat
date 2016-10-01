@@ -10,4 +10,4 @@ del *.build
 del *.list
 del *.estat
 del *.pdb
-del TesleLista*.exe
+del TeslePeca*.exe
