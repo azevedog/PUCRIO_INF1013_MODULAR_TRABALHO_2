@@ -1,0 +1,7 @@
+Esta é a pasta de distribuição do trabalho2 organizada da seguinte forma:
+
+TRAB2-1    --> Referente ao módulo Lista
+TRAB2-2    --> Referente ao módulo Tabuleiro
+TRAB2-3    --> Referente ao módulo Peça
+
+Dentro de cada módulo há um outro arquivo Leiame.txt com as devidas orientações de teste/uso individual.
