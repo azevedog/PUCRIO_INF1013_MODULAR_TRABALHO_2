@@ -17,6 +17,6 @@ Lista
 /MACHINE:IX86
 
 [BuildFim]
-C:\Modular\arcaboucoteste\TRAB1\Libs\ArcaboucoTeste.lib
+..\Libs\ArcaboucoTeste.lib
 
 [Fim]

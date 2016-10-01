@@ -17,6 +17,6 @@ Peca
 /MACHINE:IX86
 
 [BuildFim]
-C:\MODULAR_T2\Libs\ArcaboucoTeste.lib
+..\Libs\ArcaboucoTeste.lib
 
 [Fim]
