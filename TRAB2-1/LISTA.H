@@ -79,7 +79,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
          LIS_CondRetListaVazia = 2,
                /* A lista não contém elementos */
 
-         LIS_CondRetFimLista 4,
+         LIS_CondRetFimLista = 4,
                /* Foi atingido o fim de lista */
 
          LIS_CondRetFaltouMemoria = 6,
@@ -119,8 +119,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista,
-             void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista ) ;
 
 
 /***********************************************************************
@@ -205,13 +204,12 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     pLista - ponteiro para a lista de onde se quer o valor
 *
 *  $FV Valor retornado
-*     não NULL - se o elemento corrente existe
-*     NULL     - se a lista estiver vazia
-*                Pode retornar NULL se o valor inserido no elemento for NULL.
+*     LIS_CondRetOk 
+*     LIS_CondRetListaVazia
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista, void * valor ) ;
 
 
 /***********************************************************************
@@ -225,6 +223,10 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista - ponteiro para a lista a manipular
+*
+*  $FV Valor retornado
+*     LIS_CondRetOk 
+*     LIS_CondRetListaVazia
 *
 ***********************************************************************/
 

@@ -1,10 +1,23 @@
 TestLis.c
-Lista.c
-Microsoft (R) Incremental Linker Version 9.00.30729.01
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/OUT:TesteLista.exe 
-/INCREMENTAL:NO 
-/MACHINE:IX86 
-TestLis.obj Lista.obj 
-C:\Modular\arcaboucoteste\TRAB1\Libs\ArcaboucoTeste.lib 
+.\TestLis.c(114) : error C2065: 'RESET_LISTA_CMD' : undeclared identifier
+.\TestLis.c(114) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'int'
+.\TestLis.c(114) : warning C4024: 'strcmp' : different types for formal and actual parameter 2
+.\TestLis.c(239) : error C2059: syntax error : 'type'
+.\TestLis.c(254) : error C2065: 'IR_INICIO_CMD' : undeclared identifier
+.\TestLis.c(254) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'int'
+.\TestLis.c(254) : warning C4024: 'strcmp' : different types for formal and actual parameter 2
+.\TestLis.c(265) : warning C4013: 'IrInicioLista' undefined; assuming extern returning int
+.\TestLis.c(273) : error C2065: 'IR_FIM_CMD' : undeclared identifier
+.\TestLis.c(273) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'int'
+.\TestLis.c(273) : warning C4024: 'strcmp' : different types for formal and actual parameter 2
+.\TestLis.c(284) : warning C4013: 'IrFinalLista' undefined; assuming extern returning int
+.\TestLis.c(292) : error C2065: 'AVANCAR_ELEM_CMD' : undeclared identifier
+.\TestLis.c(292) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'int'
+.\TestLis.c(292) : warning C4024: 'strcmp' : different types for formal and actual parameter 2
+.\TestLis.c(305) : warning C4013: 'LIS_AvancarElementoCorrente' undefined; assuming extern returning int
+.\TestLis.c(312) : error C2065: 'PROCURAR_VALOR_CMD' : undeclared identifier
+.\TestLis.c(312) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'int'
+.\TestLis.c(312) : warning C4024: 'strcmp' : different types for formal and actual parameter 2
+.\TestLis.c(328) : error C2198: 'LIS_ObterValor' : too few arguments for call
+.\TestLis.c(328) : error C2440: '=' : cannot convert from 'LIS_tpCondRet' to 'unsigned char *'
+.\TestLis.c(343) : warning C4013: 'LIS_ProcurarValor' undefined; assuming extern returning int
