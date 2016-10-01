@@ -4,10 +4,10 @@ REM  Compila todos os exemplos simples
 pushd  .
 
 del *.err
-del TesteLista.exe
+del TesteTabuleiro.exe
 
 del *.obj
-nmake /Ftestelista.make 
+nmake /FTesteTabuleiro.make 
 
 copy  *.err  tudo.err
 

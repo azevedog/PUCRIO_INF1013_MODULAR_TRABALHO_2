@@ -1,0 +1,22 @@
+# Composicao do programa de teste de um tabuleiro genérico
+# Este exemplo utiliza o arcabouço completo 
+
+[Diretorios]
+
+Nome        =  TesteTabuleiro
+PathDefault =  .
+err         =  .
+
+[Modulos]
+TestTab
+Tabuleiro
+
+[BuildInicio]
+/OUT:TesteTabuleiro.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+..\Libs\ArcaboucoTeste.lib
+
+[Fim]
