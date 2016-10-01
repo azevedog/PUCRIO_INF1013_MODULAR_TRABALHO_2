@@ -1,6 +1,0 @@
-/OUT:TesteTabuleiro.exe
-/INCREMENTAL:NO
-/MACHINE:IX86
-TestTab.obj  Tabuleiro.obj  
-..\Libs\ArcaboucoTeste.lib
-
