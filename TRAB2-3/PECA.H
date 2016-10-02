@@ -13,11 +13,11 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     1       gbha   1/set/2016 início desenvolvimento
+*     1       gbha   1/out/2016 início desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Implementa uma estrutura genérica de peca para jogos de tabuleiro.
-*	  Esta peca é definida por um identificacao (String) e uma cor.
+*	  Esta peca é definida por um identificacao (char) e uma cor(char).
 *
 *     A função de movimento das pecas deve ser fornecida pelo usuario do
 *	  modulo respeitando a assinatura detalhada na mesma.
@@ -57,7 +57,7 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *     Cria uma peca generica para um jogo de tabuleiro.
 *
 *  $EP Parâmetros
-*     peca  - Ponteiro de ponteiro para passagem da peca criada
+*     ppPeca  - Ponteiro de ponteiro para passagem da peca criada
 *     por referência.
 *
 *     identificador  - Caracter que identifica o tipo de peca. Como
@@ -81,7 +81,7 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *
 ***********************************************************************/
 
-PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* peca, char identificador, char corTime,
+PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* ppPeca, char identificador, char corTime,
 int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 
 /***********************************************************************
@@ -94,7 +94,7 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 *	  BOUNDS NO TABULEIRO.
 *
 *  $EP Parâmetros
-*     peca  - Ponteiro para peca que sera movida.
+*     pPeca  - Ponteiro para peca que sera movida.
 *
 *     inicialX  - Coordenada horizontal da posicao inicial da peca
 *
@@ -112,7 +112,7 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 *
 ***********************************************************************/
 
-PEC_tppPeca PEC_Mover(PEC_tppPeca peca, int inicialX, int inicialY, int finalX, int finalY) ;
+PEC_tpCondRet PEC_Mover(PEC_tppPeca pPeca, int inicialX, int inicialY, int finalX, int finalY) ;
 
 /***********************************************************************
 *
@@ -122,7 +122,7 @@ PEC_tppPeca PEC_Mover(PEC_tppPeca peca, int inicialX, int inicialY, int finalX, 
 *     Libera o espaço de memória utilizado para armazaner a peca.
 *
 *  $EP Parâmetros
-*     peca  - Ponteiro para peca que sera liberada.
+*     pPeca  - Ponteiro para peca que sera liberada.
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna PEC_CondRetOK.
@@ -132,5 +132,5 @@ PEC_tppPeca PEC_Mover(PEC_tppPeca peca, int inicialX, int inicialY, int finalX, 
 *
 ***********************************************************************/
 
-PEC_tppPeca PEC_LiberarPeca(PEC_tppPeca peca) ;
+PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca) ;
 /********** Fim do módulo de definição: PEC Peca de um jogo de tabuleiro**********/
