@@ -1,8 +1,8 @@
 /***************************************************************************
 *
-*  $MCD Módulo de definição: PEC Peca de um jogo de tabuleiro
+*  $MCI Módulo de implementação: PEC Peca de um jogo de tabuleiro
 *
-*  Arquivo gerado:              PECA.h
+*  Arquivo gerado:              PECA.c
 *  Letras identificadoras:      PEC
 *
 *  Nome da base de software:    OpenJogos
@@ -14,14 +14,6 @@
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
 *     1       gbha   1/out/2016 início desenvolvimento
-*
-*  $ED Descrição do módulo
-*     Implementa uma estrutura genérica de peca para jogos de tabuleiro.
-*	  Esta peca é definida por um identificacao (char) e uma cor(char).
-*
-*     A função de movimento das pecas deve ser fornecida pelo usuario do
-*	  modulo respeitando a assinatura detalhada na mesma.
-*
 ***************************************************************************/
 
 #include   <stdio.h>

@@ -1,24 +1,19 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TLIS Teste lista de símbolos
+*  $MCI Módulo de implementação: TPEC Peca de um jogo de 
+*	tabuleiro
 *
-*  Arquivo gerado:              TestLIS.c
-*  Letras identificadoras:      TLIS
+*  Arquivo gerado:              TESTPEC.c
+*  Letras identificadoras:      TPEC
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*  Nome da base de software:    OpenJogos
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores: avs
+*  Projeto: MODULAR_T2
+*  Gestor:  EAMCEMP LTDA
+*  Autores: MCS e GBHA
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     5       mcs  13/set/2016 implementar mudancas do T1 (procurar valor na lista)
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
-*
+*     1       gbha   1/out/2016 início desenvolvimento
 ***************************************************************************/
 
 #include    <string.h>
@@ -26,25 +21,14 @@
 #include    <malloc.h>
 
 #include    "TST_Espc.h"
-
 #include    "Generico.h"
 #include    "LerParm.h"
-
 #include    "PECA.h"
 
 
-static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
-static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"     ;
-static const char DESTRUIR_LISTA_CMD      [ ] = "=destruirlista"  ;
-static const char ESVAZIAR_LISTA_CMD      [ ] = "=esvaziarlista"  ;
-static const char INS_ELEM_ANTES_CMD      [ ] = "=inselemantes"   ;
-static const char INS_ELEM_APOS_CMD       [ ] = "=inselemapos"    ;
-static const char OBTER_VALOR_CMD         [ ] = "=obtervalorelem" ;
-static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
-static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
-static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
-static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
-static const char PROCURAR_VALOR_CMD      [ ] = "=procv"    ;
+static const char CRIAR_PECA_CMD         [ ] = "=criarpeca"     ;
+static const char LIBERAR_PECA_CMD      [ ] = "=liberarpeca"  ;
+static const char MOVER_PECA_CMD      [ ] = "=moverpeca"    ;
 
 
 #define TRUE  1
