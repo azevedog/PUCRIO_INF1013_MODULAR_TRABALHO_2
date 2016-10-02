@@ -57,6 +57,9 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *     Cria uma peca generica para um jogo de tabuleiro.
 *
 *  $EP Parâmetros
+*     peca  - Ponteiro de ponteiro para passagem da peca criada
+*     por referência.
+*
 *     identificador  - Caracter que identifica o tipo de peca. Como
 *     este atributo é armazenado em um byte, permite 128 tipos
 *	  diferentes.
@@ -69,8 +72,6 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *     do movimento da peca. Se respeita as regras da peca. NÃO
 *	  VALIDA SE O MOVIMENTO É OUT OF BOUNDS NO TABU
 *	  LEIRO.
-*
-*     peca  - Ponteiro para passagem da peca criada por referência.
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna PEC_CondRetOK.
@@ -80,7 +81,7 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *
 ***********************************************************************/
 
-PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca peca, char identificador, char corTime,
+PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* peca, char identificador, char corTime,
 int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 
 /***********************************************************************
@@ -88,32 +89,48 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 *  $FC Função: PEC  &Mover
 *
 *  $ED Descrição da função
-*     Move a .
+*     Valida o movimento da peca. Verifica se respeita as regras
+*	  da peca. NÃO VALIDA SE O MOVIMENTO É OUT OF
+*	  BOUNDS NO TABULEIRO.
 *
 *  $EP Parâmetros
-*     identificador  - Caracter que identifica o tipo de peca. Como
-*     este atributo é armazenado em um byte, permite 128 tipos
-*	  diferentes.
+*     peca  - Ponteiro para peca que sera movida.
 *
-*     corTime  - Caracter que identifica o time que esta peca
-*     pertence. Como este atributo é armazenado em um byte,
-*	   permite 128 tipos diferentes.
+*     inicialX  - Coordenada horizontal da posicao inicial da peca
 *
-*     MoverPeca  - Ponteiro para a função que processa a validade
-*     do movimento da peca. Se respeita as regras da peca. NÃO
-*	  VALIDA SE O MOVIMENTO É OUT OF BOUNDS NO TABU
-*	  LEIRO.
+*     inicialY  - Coordenada vertical da posicao inicial da peca
 *
+*     finalX  - Coordenada horizontal da posicao final da peca
+*
+*     finalY  - Coordenada vertical da posicao final da peca
 *
 *  $FV Valor retornado
-*     Se executou corretamente retorna o ponteiro para a lista.
-*     Este ponteiro será utilizado pelas funções que manipulem esta lista.
+*     Se executou corretamente retorna PEC_CondRetOK.
 *
-*     Se ocorreu algum erro, por exemplo falta de memória ou dados errados,
-*     a função retornará NULL.
+*     Se ocorreu algum erro, retorna PEC_CondRetERRO.
 *     Não será dada mais informação quanto ao problema ocorrido.
 *
 ***********************************************************************/
 
-PEC_tppPeca PEC_Mover(int inicialX, int inicialY, int finalX, int finalY) ;
+PEC_tppPeca PEC_Mover(PEC_tppPeca peca, int inicialX, int inicialY, int finalX, int finalY) ;
+
+/***********************************************************************
+*
+*  $FC Função: PEC  &LiberarPeca
+*
+*  $ED Descrição da função
+*     Libera o espaço de memória utilizado para armazaner a peca.
+*
+*  $EP Parâmetros
+*     peca  - Ponteiro para peca que sera liberada.
+*
+*  $FV Valor retornado
+*     Se executou corretamente retorna PEC_CondRetOK.
+*
+*     Se ocorreu algum erro, retorna PEC_CondRetERRO.
+*     Não será dada mais informação quanto ao problema ocorrido.
+*
+***********************************************************************/
+
+PEC_tppPeca PEC_LiberarPeca(PEC_tppPeca peca) ;
 /********** Fim do módulo de definição: PEC Peca de um jogo de tabuleiro**********/
