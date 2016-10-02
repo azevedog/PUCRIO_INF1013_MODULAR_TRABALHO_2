@@ -5,7 +5,6 @@
 *  Letras identificadoras:      LIS
 *
 *  Nome da base de software:  OpenJogos
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
@@ -93,11 +92,12 @@
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista,
-             void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista )
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista )
    {
 
-      int contarChar = idLista.strlen;
+      char * identificaLista;
+      int contarChar = strlen(idLista);
+
       if ( contarChar <= 4 && contarChar > 0)
       {
          return LIS_CondRetErro;
@@ -109,11 +109,15 @@
          return LIS_CondRetErro ;
       } /* if */
 
-      LimparCabeca( pLista ) ;
+      LimparCabeca( pLista );
+      pLista->ExcluirValor = ExcluirValor;
 
-      pLista->ExcluirValor = ExcluirValor ;
+      identificaLista = ( char * ) malloc( strlen(idLista) ) ;
 
-      char * identificaLista = (char *) malloc ( sizeof( char * ) * contarChar) ;
+      if( identificaLista == NULL){
+         return LIS_CondRetErro;
+      }
+
       strcpy( identificaLista , idLista ) ;
 
       pLista->idLista = identificaLista ;
@@ -134,13 +138,26 @@
          assert( pLista != NULL ) ;
       #endif
 
-      LIS_EsvaziarLista( pLista ) ;
+      tpElemLista * pElem ;
+      tpElemLista * pProx ;
 
+      pElem = pLista->pOrigemLista ;
+
+      while ( pElem != NULL )
+      {
+         pProx = pElem->pProx ;
+         LiberarElemento( pLista , pElem ) ;
+         pElem = pProx ;
+      } /* while */
+
+      LimparCabeca( pLista ) ;
       free( pLista ) ;
 
       return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Destruir lista */
+
+
 
 /***************************************************************************
 *
@@ -285,7 +302,7 @@
          return LIS_CondRetListaVazia ;
       }
 
-      pLista->pElemCorr = pLista->pProx ;
+      pLista->pElemCorr = pLista->pElemCorr->pProx ;
 
       return LIS_CondRetOK ;
 
@@ -296,7 +313,7 @@
 *  Função: LIS  &Ir para o elemento anterior
 *  ****/
 
-   void IrAnteriorLista( LIS_tppLista pLista )
+   LIS_tpCondRet IrAnteriorLista( LIS_tppLista pLista )
    {
 
       #ifdef _DEBUG
@@ -311,7 +328,7 @@
          return LIS_CondRetListaVazia ;
       }
 
-      pLista->pElemCorr = pLista->pAnt ;
+      pLista->pElemCorr = pLista->pElemCorr->pAnt ;
 
       return LIS_CondRetOK ;
    } /* Fim função: LIS  &Ir para o elemento anterior */
@@ -333,9 +350,7 @@
 
          if ( pLista->pElemCorr == NULL )
          {
-
             return LIS_CondRetListaVazia ;
-
          } /* fim ativa: Tratar lista vazia */
 
          pLista->pElemCorr->pValor = novoElemento;
@@ -343,6 +358,38 @@
          return LIS_CondRetOK ;
 
    } /* Fim função: LIS  &Alterar valor do elemento corrente */
+
+/***************************************************************************
+*
+*  Função: LIS  &Obter identificação da lista
+*  ****/
+
+   LIS_tpCondRet LIS_ObterId ( LIS_tppLista pLista , void * pDado )
+   {
+
+      #ifdef _DEBUG
+         assert( pLista != NULL ) ;
+      #endif
+
+      /* Tratar lista vazia */
+
+         if ( pLista->idLista == NULL )
+         {
+            return LIS_CondRetErro ;
+         } /* fim ativa: Tratar lista vazia */
+
+         pDado = pLista->idLista;
+
+         if (pDado == NULL)
+         {
+            return LIS_CondRetErro;
+         }
+
+         return LIS_CondRetOK ;
+
+   } /* Fim função: LIS &Obter identificação da lista*/
+
+
 
 
 /*****  Código das funções encapsuladas no módulo  *****/

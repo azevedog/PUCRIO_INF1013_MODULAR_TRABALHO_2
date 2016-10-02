@@ -8,7 +8,6 @@
 *  Letras identificadoras:      LIS
 *
 *  Nome da base de software:     OpenJogos
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
@@ -146,10 +145,10 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Inserir nó
+*  $FC Função: LIS  &Inserir elemento
 *
 *  $ED Descrição da função
-*     Insere novo nó após o nó corrente.
+*     Insere novo elemento após o elemento corrente.
 *     Caso a lista esteja vazia, insere o primeiro elemento da lista.
 *
 *  $EP Parâmetros
@@ -167,8 +166,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_InserirElemento( LIS_tppLista pLista ,
-                                          void * pValor        )
-       ;
+                                          void * pValor        );
 
 
 /***********************************************************************
@@ -202,6 +200,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista - ponteiro para a lista de onde se quer o valor
+*	  pValor - ponteiro para armazenar o valor contido no elemento 
+*			   corrente da lista
 *
 *  $FV Valor retornado
 *     LIS_CondRetOk 
@@ -209,7 +209,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista, void * valor ) ;
+   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista, void * pValor ) ;
 
 
 /***********************************************************************
@@ -227,6 +227,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $FV Valor retornado
 *     LIS_CondRetOk 
 *     LIS_CondRetListaVazia
+*	  LIS_CondRetFimLista
 *
 ***********************************************************************/
 
@@ -244,6 +245,11 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     pLista - ponteiro para a lista a manipular
+*
+*  $FV Valor retornado
+*     LIS_CondRetOk 
+*     LIS_CondRetListaVazia
+*	  LIS_CondRetInicioLista
 *
 ***********************************************************************/
 
@@ -270,6 +276,26 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    LIS_tpCondRet LIS_AlterarElementoCorrente( LIS_tppLista pLista ,
                                               void * novoElemento ) ;
+
+/***********************************************************************
+*
+*  $FC Função: LIS  &Obter identificação da lista
+*
+*  $ED Descrição da função
+*    Obtém a string identificadora da lista
+*
+*  $EP Parâmetros
+*     pLista  - ponteiro para a lista a ser manipulada
+*     pDado   - ponteiro para a string a armazenar o id da lista
+*
+*  $FV Valor retornado
+*     CondRetOK         - se encontrar o id da lista
+*     CondRetErro 		- se encontrar erro
+*
+***********************************************************************/
+
+   LIS_tpCondRet LIS_ObterId ( LIS_tppLista pLista ,
+                                              void * pDado ) ;
 
 
 #undef LISTA_EXT
