@@ -92,7 +92,7 @@
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista )
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista* pLista )
    {
 
       char * identificaLista;
@@ -103,14 +103,14 @@
          return LIS_CondRetErro;
       } /* if */
 
-      pLista = ( LIS_tpLista * ) malloc( sizeof( LIS_tpLista )) ;
-      if ( pLista == NULL )
+      (*pLista) = ( LIS_tpLista * ) malloc( sizeof( LIS_tpLista )) ;
+      if ( (*pLista) == NULL )
       {
          return LIS_CondRetErro ;
       } /* if */
 
-      LimparCabeca( pLista );
-      pLista->ExcluirValor = ExcluirValor;
+      LimparCabeca( (*pLista) );
+      (*pLista)->ExcluirValor = ExcluirValor;
 
       identificaLista = ( char * ) malloc( contarChar + 1) ;
 
@@ -120,7 +120,7 @@
 
       strcpy( identificaLista , idLista ) ;
 
-      pLista->idLista = identificaLista ;
+      (*pLista)->idLista = identificaLista ;
 
       return LIS_CondRetOK;
 
@@ -364,7 +364,7 @@
 *  Função: LIS  &Obter identificação da lista
 *  ****/
 
-   LIS_tpCondRet LIS_ObterId ( LIS_tppLista pLista , void * pDado )
+   LIS_tpCondRet LIS_ObterId ( LIS_tppLista pLista , char** pDado)
    {
 
       #ifdef _DEBUG
@@ -378,9 +378,9 @@
             return LIS_CondRetErro ;
          } /* fim ativa: Tratar lista vazia */
 
-         pDado = pLista->idLista;
+         (*pDado) = pLista->idLista;
 
-         if (pDado == NULL)
+         if ((*pDado) == NULL)
          {
             return LIS_CondRetErro;
          }

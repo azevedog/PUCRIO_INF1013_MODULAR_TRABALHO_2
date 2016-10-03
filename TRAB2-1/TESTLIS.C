@@ -115,8 +115,16 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
+			
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+			
+			strcpy(pDado , StringDado ) ;
 
-            CondRet = LIS_CriarLista( StringDado, DestruirValor, vtListas[inxLista] ) ;
+            CondRet = LIS_CriarLista(pDado, DestruirValor, &(vtListas[inxLista]) ) ;
 
             return TST_CompararInt( CondRetEsp , CondRet ,
                "Erro em ponteiro de nova lista"  ) ;
@@ -293,7 +301,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             numLidos = LER_LerParametros( "is" , &inxLista, StringDado );
 
             if ( numLidos != 2
-              || ( !ValidarInxLista( inxLista , NAO_VAZIO )) )
+              || ( !ValidarInxLista( inxLista , NAO_VAZIO )))
             {
                return TST_CondRetParm;
             } 
@@ -304,7 +312,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetMemoria ;
             } /* if */
 
-            CondRet = LIS_ObterId( vtListas[ inxLista ], pDado );
+            CondRet = LIS_ObterId( vtListas[ inxLista ], &pDado );
 
             if ( pDado == NULL )
             {

@@ -118,7 +118,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista* pLista ) ;
 
 
 /***********************************************************************
@@ -295,7 +295,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_ObterId ( LIS_tppLista pLista ,
-                                              void * pDado ) ;
+                                              char** pDado ) ;
 
 
 #undef LISTA_EXT
