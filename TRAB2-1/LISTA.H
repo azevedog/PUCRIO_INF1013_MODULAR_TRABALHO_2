@@ -15,7 +15,12 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     1       mcs   01/out/2016 início desenvolvimento
+*     6       mcs   01/out/2016 implementar mudancas do T2, adaptando o módulo 
+*     5       mcs   13/set/2016 implementar mudancas do T1 (procurar valor na lista)
+*     4       avs   01/fev/2006 criar linguagem script simbólica
+*     3       avs   08/dez/2004 uniformização dos exemplos
+*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
+*     1       avs   16/abr/2003 início desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Implementa listas genéricas duplamente encadeadas.
@@ -253,7 +258,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet IrAnteriorLista( LIS_tppLista pLista ) ;
+   LIS_tpCondRet IrAnteriorLista( LIS_tppLista * pLista ) ;
 
 
 /***********************************************************************

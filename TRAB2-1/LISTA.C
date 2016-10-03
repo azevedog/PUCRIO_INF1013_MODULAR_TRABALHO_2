@@ -12,7 +12,12 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     1       mcs   1/out/2016 início desenvolvimento
+*     6       mcs   01/out/2016 implementar mudancas do T2, adaptando o módulo 
+*     5       mcs   13/set/2016 implementar mudancas do T1 (procurar valor na lista)
+*     4       avs   01/fev/2006 criar linguagem script simbólica
+*     3       avs   08/dez/2004 uniformização dos exemplos
+*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
+*     1       avs   16/abr/2003 início desenvolvimento
 *
 ***************************************************************************/
 
@@ -264,7 +269,7 @@
 *  Função: LIS  &Obter referência para o valor contido no elemento
 *  ****/
 
-   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista, void * valor)
+   LIS_tpCondRet LIS_ObterValor( LIS_tppLista pLista, void ** pValor)
    {
 
       #ifdef _DEBUG
@@ -276,7 +281,13 @@
         return LIS_CondRetListaVazia ;
       } /* if */
 
-      valor = pLista->pElemCorr->pValor ;
+	  
+	  (*pValor) = pLista->pElemCorr->pValor;
+
+         if ((*pValor) == NULL)
+         {
+            return LIS_CondRetErro;
+         }
 
       return LIS_CondRetOK;
 
@@ -294,13 +305,13 @@
          assert( pLista != NULL ) ;
       #endif
 
-      if( pLista->pElemCorr == pLista->pFimLista ){
-         return LIS_CondRetFimLista ;
-      } /* if */
-
       if ( pLista->pElemCorr == NULL){
          return LIS_CondRetListaVazia ;
-      }
+       }
+	  
+	  if( pLista->pElemCorr == pLista->pFimLista ){
+         return LIS_CondRetFimLista ;
+      } /* if */
 
       pLista->pElemCorr = pLista->pElemCorr->pProx ;
 
@@ -313,22 +324,22 @@
 *  Função: LIS  &Ir para o elemento anterior
 *  ****/
 
-   LIS_tpCondRet IrAnteriorLista( LIS_tppLista pLista )
+   LIS_tpCondRet IrAnteriorLista( LIS_tppLista * pLista )
    {
 
       #ifdef _DEBUG
-         assert( pLista != NULL ) ;
+         assert( (*pLista) != NULL ) ;
       #endif
 
-      if( pLista->pElemCorr == pLista->pOrigemLista ){
-         return LIS_CondRetInicioLista ;
-      } /* if */
-
-      if ( pLista->pElemCorr == NULL){
+      if ( (*pLista)->pElemCorr == NULL){
          return LIS_CondRetListaVazia ;
       }
 
-      pLista->pElemCorr = pLista->pElemCorr->pAnt ;
+	  if( (*pLista)->pOrigemLista == (*pLista)->pElemCorr ){
+         return LIS_CondRetInicioLista ;
+      } /* if */
+	  
+      (*pLista)->pElemCorr = (*pLista)->pElemCorr->pAnt ;
 
       return LIS_CondRetOK ;
    } /* Fim função: LIS  &Ir para o elemento anterior */

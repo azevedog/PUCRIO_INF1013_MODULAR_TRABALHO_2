@@ -13,7 +13,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     5       mcs  13/set/2016 implementar mudancas do T1 (procurar valor na lista)
+*     6       mcs   01/out/2016 implementar mudancas do T2, adaptando o módulo 
+*     5       mcs   13/set/2016 implementar mudancas do T1 (procurar valor na lista)
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
@@ -138,12 +139,17 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             numLidos = LER_LerParametros( "ii" ,
                                &inxLista, &CondRetEsp ) ;
-
-            if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            
+			if ( numLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
+			
+			if ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
+			{
+				return TST_CompararInt( CondRetEsp , 3 ,
+				"Condição de retorno errada para lista não existente");
+			}
 
             CondRet = LIS_DestruirLista( vtListas[ inxLista ] ) ;
             vtListas[ inxLista ] = NULL ;
@@ -220,17 +226,24 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             {
                return TST_CondRetParm ;
             } /* if */
-
-            CondRet = LIS_ObterValor( vtListas[ inxLista ], (char *)pDado );
-
+			
+			pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
             if ( pDado == NULL )
             {
-               return TST_CompararPonteiroNulo( 1 , pDado ,
-                         "Dado tipo um deveria existir." ) ;
+               return TST_CondRetMemoria ;
             } /* if */
 
-            return TST_CompararString( StringDado , pDado ,
-                         "Valor do elemento errado." ) ;
+            CondRet = LIS_ObterValor( vtListas[ inxLista ], (char *)pDado );
+			
+			if ( CondRet == 0 ){
+				if ( strcmp(StringDado, pDado) == 0) 
+				{
+					return TST_CompararInt( CondRetEsp, CondRet,
+					"Condição de retorno errada ao comparar strings");
+				}
+			}
+			return TST_CompararInt( CondRetEsp , CondRet, 
+					"Condição de retorno errada ao obter valor");
 
          } /* fim ativa: Testar obter valor do elemento corrente */
 
@@ -267,9 +280,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = IrAnteriorLista( vtListas[ inxLista ] ) ;
+            CondRet = IrAnteriorLista( &(vtListas[ inxLista ]) ) ;
 
-             return TST_CompararInt( CondRetEsp , CondRet,
+            return TST_CompararInt( CondRetEsp , CondRet,
               "Condição de retorno errada ao ir para o elemento anterior") ;
 
          } /* fim ativa: LIS  &Ir para o elemento anterior */
@@ -282,11 +295,16 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             numLidos = LER_LerParametros( "isi" , &inxLista , StringDado ,
                                 &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            if ( numLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
+			
+			if ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
+			{
+				return TST_CompararInt( CondRetEsp , 3 ,
+				"Condição de retorno errada para lista não existente");
+			}
 
             CondRet = LIS_AlterarElementoCorrente( vtListas[ inxLista ], StringDado);
 

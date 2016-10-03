@@ -43,11 +43,8 @@
 == Verificar IrAnteriorLista relativo a lista vazia 
 =irAnt lista1 ListaVazia
 
-== Verificar AlterarElementoCorrente relativo a lista vazia 
-=alterarNoCorrente lista1 str0 ListaVazia
-
 == Verificar ObterValor relativo a lista vazia
-=obterNo lista1 str0 ListaVazia 
+=obterNo lista1 "" ListaVazia 
 
 == Verificar ExcluirElemento relativo a lista vazia
 =excluirNoCorrente lista1 ListaVazia
@@ -82,19 +79,55 @@
 =obterNo lista2 str2 OK
 
 == Mudar elemento corrente para o primeiro
+=irAnt lista2 OK
+=obterNo lista2 str1 OK
 =irAnt lista2 InicioLista
 =obterNo lista2 str1 OK
 
 == Mudar elemento corrente para o último da lista
 =irProx lista2 OK
 =obterNo lista2 str2 OK
+=irProx lista2 OK
+=obterNo lista2 str0 OK
 =irProx lista2 FimLista
 =obterNo lista2 str0 OK
 
 == Destruir lista que não existe
-=detroiLista lista3 Erro
+=destroiLista lista3 Erro
 
 == Destruir lista 2
 =destroiLista lista2 OK
+
+== Criar lista 3 com nenhum elemento
+=criarLista lista3 id2 OK
+
+== Verificar AlterarElementoCorrente relativo a lista vazia 
+=alterarNoCorrente lista3 str0 ListaVazia
+
+== Inserir primeiro elemento na lista 3
+=inserirNo lista3 str0 OK
+=obterNo lista3 str0 OK
+
+== Inserir segundo elemento na lista 3
+=inserirNo lista3 str2 OK
+=obterNo lista3 str2 OK
+
+== Inserir elemento na segunda posição na lista 3
+=irAnt lista3 OK
+=obterNo lista3 str2 OK
+=inserirNo lista3 str1 OK
+=obterNo lista3 str1 OK
+
+==Inserir elemento na última posição
+=irProx lista3 OK
+=obterNo lista3 str2 OK
+=irProx lista3 FimLista
+=inserirNo lista3 str3 OK
+=obterNo lista3 str3 OK
+
+== Destruir lista 3
+=destroiLista lista3 OK
+
+
 
 // fim
