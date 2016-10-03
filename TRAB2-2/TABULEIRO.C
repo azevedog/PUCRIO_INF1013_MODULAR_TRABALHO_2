@@ -23,7 +23,6 @@
 #include   <malloc.h>
 #include   <assert.h>
 #include "TABULEIRO.h"
-#include "PECA.h"
 
 /***********************************************************************
 *
