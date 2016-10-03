@@ -12,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	   2       gbha  3/out/2016 Conclusao desenvolvimento
 *     1       mcs   1/out/2016 início desenvolvimento
 *
 ***************************************************************************/
@@ -22,26 +23,7 @@
 #include   <malloc.h>
 #include   <assert.h>
 #include "TABULEIRO.h"
-
-/***********************************************************************
-*
-*  $TC Tipo de dados: LIS Elemento da lista
-*
-*
-***********************************************************************/
-
-   typedef struct tagElemLista {
-
-         void * pValor ;
-               /* Ponteiro para o valor contido no elemento */
-
-         struct tagElemLista * pAnt ;
-               /* Ponteiro para o elemento predecessor */
-
-         struct tagElemLista * pProx ;
-               /* Ponteiro para o elemento sucessor */
-
-   } tpElemLista ;
+#include "PECA.h"
 
 /***********************************************************************
 *
@@ -50,24 +32,12 @@
 *
 ***********************************************************************/
 
-   typedef struct LIS_tagLista {
+   typedef struct TAB_tagTabuleiro {
 
-         tpElemLista * pOrigemLista ;
-               /* Ponteiro para a origem da lista */
-
-         tpElemLista * pFimLista ;
-               /* Ponteiro para o final da lista */
-
-         tpElemLista * pElemCorr ;
-               /* Ponteiro para o elemento corrente da lista */
-
-         int numElem ;
-               /* Número de elementos da lista */
-
-         void ( * ExcluirValor ) ( void * pValor ) ;
-               /* Ponteiro para a função de destruição do valor contido em um elemento */
-
-   } LIS_tpLista ;
+        PEC_tppPeca** posicoes;
+               /* Matriz de posicoes do tabuleiro*/
+			   
+   } TAB_tpTabuleiro ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 

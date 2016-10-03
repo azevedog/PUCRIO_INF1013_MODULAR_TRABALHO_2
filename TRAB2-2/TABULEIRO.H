@@ -1,67 +1,43 @@
-#if ! defined( LISTA_ )
-#define LISTA_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: LIS  Lista duplamente encadeada
+*  $MCD Módulo de definição: TAB  Tabuleiro para jogo generico 
 *
-*  Arquivo gerado:              LISTA.h
-*  Letras identificadoras:      LIS
+*  Arquivo gerado:              TABULEIRO.c
+*  Letras identificadoras:      TAB
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*  Nome da base de software:    OpenJogos
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores: avs
+*  Projeto: MODULAR_T2
+*  Gestor:  EAMCEMP LTDA
+*  Autores: MCS e GBHA
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*	  2       gbha  3/out/2016 Conclusao desenvolvimento
+*     1       mcs   1/out/2016 Início desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Implementa listas genéricas duplamente encadeadas.
-*     Podem existir n listas em operação simultaneamente.
-*     As listas possuem uma cabeça encapsulando o seu estado.
-*
-*     Cada lista é homogênea quanto ao tipo dos dados que armazena.
-*     Cada elemento da lista referencia o valor que contém.
-*
-*     Os ponteiros para os dados são copiados para elementos da lista.
-*        Não é copiado o valor apontado por estes ponteiros.
-*
-*     O controle da destruição do valor de um elemento a ser excluído
-*        é realizado por uma função fornecida pelo usuário.
-*
-*     Cada lista referencia uma função que determina como devem ser
-*        desalocados os dados nela contidos.
-*
-*     A função de liberação dos valores contidos nos elementos deve
-*        assegurar a liberação de todos os espaços referênciados pelo
-*        valor contido em um elemento.
-*        Esta função é chamada antes de se desalocar um elemento
-*        de uma lista.
-*        Caso não seja necessário desalocar o valor referenciado pelo
-*        elemento, o ponteiro para a função de liberação poderá ser NULL .
-*        Caso o elemento da lista seja a única âncora do valor referenciado,
-*        esta função deve promover a destruição (free) desse valor e
-*        de todos os dados nele ancorados.
+*   Implementa um tabuleiro generico para jogos organizado
+*	por linhas e colunas, ocupados por pecas (definidas no
+*	modulo PECA, ver PECA.h).
+*	
+*	Um jogo pode ser desenvolvido com este tabuleiro que
+*	permite:
+*		- Inserir peca
+*		- Mover peca
+*		- Remover peca
+*		- Obter peca
+*		- Obter lista de ameacantes (outras pecas que podem
+*		alcancar aquela posicao. ELIMINACOES NAO SAO IMPLEMEN
+*		TADAS NESSE MODULO. DEPENDE DAS REGRAS DE JOGOS QUE
+*		SAO IMPLEMENTADAS FORA DESTE MODULO.
 *
 ***************************************************************************/
- 
-#if defined( LISTA_OWN )
-   #define LISTA_EXT
-#else
-   #define LISTA_EXT extern
-#endif
 
 /***** Declarações exportadas pelo módulo *****/
 
-/* Tipo referência para uma lista */
-
-typedef struct LIS_tagLista * LIS_tppLista ;
+/* Tipo referência para um tabuleiro */
+typedef struct TAB_tagTabuleiro* TAB_tppTabuleiro;
 
 
 /***********************************************************************
@@ -74,24 +50,15 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   typedef enum {
+typedef enum {
 
-         LIS_CondRetOK ,
+         TAB_CondRetOK ,
                /* Concluiu corretamente */
 
-         LIS_CondRetListaVazia ,
-               /* A lista não contém elementos */
-
-         LIS_CondRetFimLista ,
-               /* Foi atingido o fim de lista */
-
-         LIS_CondRetNaoAchou ,
-               /* Não encontrou o valor procurado */
-
-         LIS_CondRetFaltouMemoria
+         TAB_CondRetErro
                /* Faltou memória ao tentar criar um elemento de lista */
 
-   } LIS_tpCondRet ;
+} TAB_tpCondRet ;
 
 
 /***********************************************************************
