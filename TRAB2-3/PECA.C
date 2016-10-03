@@ -35,10 +35,10 @@
         char identificadorTipo;
                /* Identificador do tipo de peca */
 
-         char corTime;
+        char corTime;
                /* Cor do time ao qual a peca pertence*/
 
-         int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY);
+		int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY);
                /* Ponteiro para a função de movimento da peca */
 
    } PEC_tpPeca ;
@@ -101,8 +101,8 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca){
 	if(pPeca == NULL){
 		return PEC_CondRetERRO;
 	}
-	
 	free(pPeca) ;
+	return PEC_CondRetOK;
 } /* Fim função: PEC  &LiberarPeca */
 
 
@@ -114,12 +114,12 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca){
 *
 ***********************************************************************/
 
-   void LimparPeca( PEC_tppPeca pPeca)
+void LimparPeca( PEC_tppPeca pPeca)
    {
 	
 		pPeca->identificadorTipo = 0;
 		pPeca->corTime = 0;
-   } /* Fim função: PEC  -Limpa a peca */
+} /* Fim função: PEC  -Limpa a peca */
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
 

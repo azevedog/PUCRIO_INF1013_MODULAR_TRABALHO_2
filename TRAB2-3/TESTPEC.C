@@ -78,7 +78,7 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
 	  char   corPeca;
       char * pCorPeca;	
 		
-      /* Efetuar reset de teste de lista */
+      /* Efetuar reset de teste de Peca */
 		if ( strcmp( ComandoTeste , CRIAR_PECA_CMD ) == 0 )
          {
 
@@ -101,44 +101,50 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
             return TST_CompararInt( CondRetEsp ,CondRet ,
                "Erro ao criar peca.") ;
 
-        } /* fim ativa: Testar CriarLista */
+        } /* fim ativa: Testar CriarPeca */
 
-      /* Testar Esvaziar lista lista */
-        else if ( strcmp( ComandoTeste , ESVAZIAR_LISTA_CMD ) == 0 ){
+      /* Testar Esvaziar Liberar Peca */
+        else if ( strcmp( ComandoTeste , LIBERAR_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
+            numLidos = LER_LerParametros( "ii" ,
+                               &inxPeca, &CondRetEsp) ;
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            if ( ( numLidos != 2 )
+              || ( ! ValidarInxLista(inxPeca)))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_EsvaziarLista( vtListas[ inxLista ] ) ;
+            CondRet = PEC_LiberarPeca(vtListas[ inxLista ] ) ;
+			
+			return TST_CompararInt( CondRetEsp ,CondRet ,
+               "Erro ao liberar peca.") ;
 
-            return TST_CondRetOK ;
+        } /* fim ativa: Testar Liberar Peca */
 
-        } /* fim ativa: Testar Esvaziar lista lista */
+      /* Testar Mover Peca */
+        else if (strcmp( ComandoTeste , MOVER_PECA_CMD ) == 0 ){
+			
+			int iniX,
+				iniY,
+				fimX,
+				fimY
+			;
+			
+            numLidos = LER_LerParametros( "iiiii" ,
+                               &inxPeca, &iniX, &iniY, &fimX, &fimY, &CondRetEsp) ;
 
-      /* Testar Destruir lista */
-        else if ( strcmp( ComandoTeste , DESTRUIR_LISTA_CMD ) == 0 ){
-
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
-
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+            if ( ( numLidos != 5 )
+              || ( ! ValidarInxLista(inxPeca)))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            LIS_DestruirLista( vtListas[ inxLista ] ) ;
-            vtListas[ inxLista ] = NULL ;
+            CondRet = PEC_Mover(&(vtListas[inxPeca]), iniX, iniY, fimX, fimY) ;
 
-            return TST_CondRetOK ;
-
-        } /* fim ativa: Testar Destruir lista */
+            return TST_CompararInt( CondRetEsp ,CondRet ,
+               "Erro ao mover a peca.") ;
+        } /* fim ativa: Testar Mover Peca */
 
       return TST_CondRetNaoConhec ;
 	}/* Fim função: TLIS &Testar lista */
