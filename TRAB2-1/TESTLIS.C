@@ -33,8 +33,8 @@
 #include    "Lista.h"
 
 
-static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"        ;
-static const char DESTRUIR_LISTA_CMD      [ ] = "=destruirlista"     ;
+static const char CRIAR_LISTA_CMD         [ ] = "=criarLista"        ;
+static const char DESTRUIR_LISTA_CMD      [ ] = "=destroiLista"      ;
 static const char OBTER_LISTA_CMD         [ ] = "=obterIdLista"      ;
 static const char INS_ELEM_CMD            [ ] = "=inserirNo"         ;
 static const char OBTER_VALOR_CMD         [ ] = "=obterNo"           ;
@@ -42,7 +42,6 @@ static const char EXC_ELEM_CMD            [ ] = "=excluirNoCorrente" ;
 static const char IR_PROX_CMD             [ ] = "=irProx"            ;
 static const char IR_ANT_CMD              [ ] = "=irAnt"             ;
 static const char ALTERAR_CORR_CMD        [ ] = "=alterarNoCorrente" ;
-
 
 #define TRUE  1
 #define FALSE 0
@@ -117,11 +116,10 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet =
-                 LIS_CriarLista( StringDado, DestruirValor, vtListas[inxLista] ) ;
+            CondRet = LIS_CriarLista( StringDado, DestruirValor, vtListas[inxLista] ) ;
 
             return TST_CompararInt( CondRetEsp , CondRet ,
-               "Erro em ponteiro de nova lista."  ) ;
+               "Erro em ponteiro de nova lista"  ) ;
 
          } /* fim ativa: Testar CriarLista */
 
@@ -177,7 +175,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir elemento."                   ) ;
+                     "Condicao de retorno errada ao inserir elemento.") ;
 
          } /* fim ativa: Testar inserir elemento */
 
@@ -290,11 +288,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          } /* fim ativa: LIS  &Alterar valor do elemento corrente */
 
       /* LIS &Obter Id da Lista */
-         else if ( strcmp ( ComandoTeste , OBTER_LISTA_CMD) == 0)
+         else if ( strcmp (ComandoTeste , OBTER_LISTA_CMD) == 0)
          {
             numLidos = LER_LerParametros( "is" , &inxLista, StringDado );
 
-            if ( numLidos != 2 || !ValidarInxLista( inxLista , NAO_VAZIO) )
+            if ( numLidos != 2
+              || ( !ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm;
             } 

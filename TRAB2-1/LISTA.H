@@ -78,17 +78,17 @@ typedef struct LIS_tagLista * LIS_tppLista ;
          LIS_CondRetListaVazia = 2,
                /* A lista não contém elementos */
 
+         LIS_CondRetErro = 3,
+               /* Condição de erro encontrada */
+
          LIS_CondRetFimLista = 4,
                /* Foi atingido o fim de lista */
-
-         LIS_CondRetFaltouMemoria = 6,
-               /* Faltou memória ao tentar criar um elemento de lista */
 
          LIS_CondRetInicioLista = 5,
                /* Foi atingido o inicio da lista */
 
-         LIS_CondRetErro = 3
-               /* Condição de erro encontrada */
+         LIS_CondRetFaltouMemoria = 6,
+               /* Faltou memória ao tentar criar um elemento de lista */
 
    } LIS_tpCondRet ;
 
@@ -118,7 +118,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista, void   ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista pLista ) ;
 
 
 /***********************************************************************

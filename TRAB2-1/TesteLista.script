@@ -8,6 +8,11 @@
 =declararparm   lista0  int 0
 =declararparm   lista1  int 1
 =declararparm   lista2  int 2
+=declararparm	lista3  int 3
+
+=declararparm	id0	string "prim"
+=declararparm   id1 string "seg"
+=declararparm	id2	string "terc"
 
 =declararparm   str0    string  "ABC"
 =declararparm   str1    string  "DEF"
@@ -16,139 +21,80 @@
 =declararparm   str4    string  "null"
 
 =declararparm   OK             int  0
-=declararparm   ListaVazia     int  1
-=declararparm   FimLista       int  2
-=declararparm   NaoAchou       int  3
-=declararparm   FaltouMemoria  int  4
+=declararparm   ListaVazia     int  2
+=declararparm   Erro	       int  3
+=declararparm   FimLista       int  4
+=declararparm 	InicioLista    int  5
+=declararparm   FaltouMemoria  int  6
 
-=declararparm   pNULL          int  0
-=declararparm   pNaoNULL       int  1
 
-== Criar a lista 0
-=criarlista      lista0 
+== Criar a lista passando uma quantidade maior de caracteres que a permitida para a sua id
+=criarLista lista0 "abcdef" Erro
+
+== Criar a lista 1
+=criarLista lista1 id0 OK
+
+== Verificar obterIdLista da lista 1
+=obterIdLista lista1 id0
+
+== Verificar IrProximoLista relativo a lista vazia 
+=irProx lista1 ListaVazia
+
+== Verificar IrAnteriorLista relativo a lista vazia 
+=irAnt lista1 ListaVazia
+
+== Verificar AlterarElementoCorrente relativo a lista vazia 
+=alterarNoCorrente lista1 str0 ListaVazia
 
 == Verificar ObterValor relativo a lista vazia
-=obtervalorelem  lista0   "???"     pNULL
+=obterNo lista1 str0 ListaVazia 
 
-== Verificar AvancarElementoCorrente relativo a lista vazia 
-=avancarelem lista0 1 ListaVazia
-
-== Verificar ExcluirElemento relativo a lista vazia 
-=excluirelem lista0 1
-
-== Verificar ProcurarValor relativo a lista vazia
-=procv lista0 "???" ListaVazia 
+== Verificar ExcluirElemento relativo a lista vazia
+=excluirNoCorrente lista1 ListaVazia
 
 == Inserir elemento em lista vazia
-=inselemantes    lista0   str0   OK
-=obtervalorelem  lista0   str0   pNaoNULL
+=inserirNo   lista1   str0   OK
+=obterNo lista1   str0   OK
 
-== Inserir elemento após primeiro
-=inselemapos     lista0   str1   OK
-=obtervalorelem  lista0   str1   pNaoNULL
+== Excluir elemento em lista com um elemento
+=excluirNoCorrente lista1 OK
 
-== Inserir elemento antes do último
-=inselemantes    lista0   str2   OK
-=obtervalorelem  lista0   str2   pNaoNULL
+== Destroi lista vazia
+=destroiLista lista1 OK
 
-== Excluir elemento do meio
-=obtervalorelem  lista0   str2   pNaoNULL
-=excluirelem     lista0             OK
+== Criar lista 2 com 3 elementos
+=criarLista lista2 id1  OK
+=inserirNo  lista2 str1  OK
+=obterNo    lista2 str1  OK
+=inserirNo  lista2 str2  OK
+=obterNo    lista2 str2  OK
+=inserirNo  lista2 str3  OK
+=obterNo    lista2 str3  OK
 
-== Excluir elemento do início
-=obtervalorelem  lista0   str0   pNaoNULL
-=excluirelem     lista0             OK
+== Alterar valor do nó corrente de lista que não existe
+=alterarNoCorrente lista3 str1 Erro
 
-== Excluir elemento final, único 
-=obtervalorelem  lista0   str1   pNaoNULL
-=excluirelem     lista0             OK
+== Alterar valor do nó corrente da lista 2
+=alterarNoCorrente lista2 str0 OK
 
-== Ver se a lista ficou vazia
-=obtervalorelem  lista0   "???"     pNULL
+== Mudar elemento corrente para o meio 
+=irAnt lista2 OK
+=obterNo lista2 str2 OK
 
-== Ir para o primeiro elemento da lista vazia 
-=irinicio lista0 
-=obtervalorelem  lista0  "???"     pNULL
+== Mudar elemento corrente para o primeiro
+=irAnt lista2 InicioLista
+=obterNo lista2 str1 OK
 
-== Ir para o ultimo elemento da lista 
-=irfinal lista0
-=obtervalorelem  lista0   "???"    pNULL
+== Mudar elemento corrente para o último da lista
+=irProx lista2 OK
+=obterNo lista2 str2 OK
+=irProx lista2 FimLista
+=obterNo lista2 str0 OK
 
-== Destruir a lista
-=destruirlista   lista0
+== Destruir lista que não existe
+=detroiLista lista3 Erro
 
-== Criar uma lista com dois elementos
-=criarlista      lista1 
-=inselemapos     lista1   str0   OK
-=inselemapos     lista1   str1   OK
-
-== Buscar elemento que nao consta na lista 
-=procv 			 lista1   str2   NaoAchou
-
-== Buscar elemento que existe na lista
-=procv lista1 str1 OK
-
-== Esvaziar a lista e ver se ficou vazia
-=esvaziarlista   lista1
-=obtervalorelem  lista1   "???"     pNULL
-
-== Destruir a lista
-=destruirlista   lista1
-
-== Criar uma lista com quatro elementos
-=criarlista      lista2 
-=inselemapos     lista2   str0   OK
-=inselemapos     lista2   str1   OK
-=inselemapos     lista2   str2   OK
-=inselemapos     lista2   str3   OK
-
-== Verificar a lista de trás para diante
-=obtervalorelem  lista2   str3   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str2   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str1   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str0   pNaoNULL
-=avancarelem     lista2   -1     FimLista
-
-== Verificar a lista de frente para trás
-=obtervalorelem  lista2   str0   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str1   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str2   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str3   pNaoNULL
-=avancarelem     lista2   1      FimLista
-
-== Verificar a lista andando demais de trás para diante
-=avancarelem     lista2   -10     FimLista
-=obtervalorelem  lista2   str0   pNaoNULL
-
-== Verificar a lista andando demais de frente para trás
-=avancarelem     lista2   10     FimLista
-=obtervalorelem  lista2   str3   pNaoNULL
-
-== Verificar avanco em 0 na lista
-=avancarelem	lista2	0	OK
-=obtervalorelem	lista2	str3	pNaoNULL
-
-== Ir para o primeiro elemento da lista 
-=irinicio lista2 
-=obtervalorelem  lista2   str0   pNaoNULL
-
-== Ir para o ultimo elemento da lista 
-=irfinal lista2 
-=obtervalorelem  lista2   str3   pNaoNULL
-
-== Buscar elemento que existe na lista
-=procv lista2 str1 OK
-
-== Buscar elemento com valor nulo
-=procv lista2 str4 NaoAchou
-
-== Destruir a lista
-=destruirlista   lista2
+== Destruir lista 2
+=destroiLista lista2 OK
 
 // fim

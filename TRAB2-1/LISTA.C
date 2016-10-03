@@ -98,7 +98,7 @@
       char * identificaLista;
       int contarChar = strlen(idLista);
 
-      if ( contarChar <= 4 && contarChar > 0)
+      if ( contarChar > 4 || contarChar < 0)
       {
          return LIS_CondRetErro;
       } /* if */
@@ -112,7 +112,7 @@
       LimparCabeca( pLista );
       pLista->ExcluirValor = ExcluirValor;
 
-      identificaLista = ( char * ) malloc( strlen(idLista) ) ;
+      identificaLista = ( char * ) malloc( contarChar + 1) ;
 
       if( identificaLista == NULL){
          return LIS_CondRetErro;
@@ -122,7 +122,7 @@
 
       pLista->idLista = identificaLista ;
 
-      return LIS_CondRetOK ;
+      return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Criar lista */
 
