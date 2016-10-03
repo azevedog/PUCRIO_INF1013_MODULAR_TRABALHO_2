@@ -13,6 +13,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	  2       gbha   3/out/2016	conclusão desenvolvimento
 *     1       gbha   1/out/2016 início desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -81,7 +82,7 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
 *
 ***********************************************************************/
 
-PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* ppPeca, char identificador, char corTime,
+PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* ppPeca, char* identificador, char* corTime,
 int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) ;
 
 /***********************************************************************

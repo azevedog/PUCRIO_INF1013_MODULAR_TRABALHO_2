@@ -13,6 +13,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	  2       mcs	 2/out/2016 conclusão do desenvolvimento
 *     1       gbha   1/out/2016 início desenvolvimento
 ***************************************************************************/
 
@@ -32,10 +33,10 @@
 
    typedef struct PEC_tagPeca {
 
-        char identificadorTipo;
+        char* identificadorTipo;
                /* Identificador do tipo de peca */
 
-        char corTime;
+        char* corTime;
                /* Cor do time ao qual a peca pertence*/
 
 		int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY);
@@ -61,7 +62,7 @@
 *
 *  Função: PEC  &Criar peca
 *  ****/
-PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* ppPeca, char identificador, char corTime,
+PEC_tpCondRet PEC_CriarPeca(PEC_tppPeca* ppPeca, char* identificador, char* corTime,
 int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) {
 
 	(*ppPeca) = (PEC_tpPeca*) malloc( sizeof( PEC_tpPeca)) ;
@@ -70,7 +71,11 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) {
 	}
 	
 	LimparPeca((*ppPeca));
+	
+	(*ppPeca)->identificadorTipo = identificador;
+	(*ppPeca)->corTime = corTime;
 	(*ppPeca)->MoverPeca = MoverPeca;
+	
 	return PEC_CondRetOK;
 }/* Fim função: PEC  &Criar peca */
 
@@ -79,16 +84,19 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) {
 *  Função: PEC  &Mover
 *  ****/
 PEC_tpCondRet PEC_Mover(PEC_tppPeca pPeca, int inicialX, int inicialY, int finalX, int finalY) {
-	int ret=-10;
+	int ret = -10;
 	
-	if ( ( pPeca->MoverPeca == NULL ){
+	if ( ( pPeca->MoverPeca == NULL ) ){
 		return PEC_CondRetERRO;
 	}
 	
 	ret = pPeca->MoverPeca(inicialX, inicialY, finalX, finalY);
-	if(ret > 0){
+	
+	if(ret > 0)
+	{
 		return PEC_CondRetOK;
-	}else{ 
+	} else
+	{ 
 		return PEC_CondRetERRO;
 	}
 }/* Fim função: PEC  &LiberarPeca */

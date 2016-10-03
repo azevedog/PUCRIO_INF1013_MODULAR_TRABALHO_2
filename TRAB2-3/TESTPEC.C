@@ -27,9 +27,9 @@
 #include    "PECA.h"
 
 
-static const char CRIAR_PECA_CMD         [ ] = "=criarpeca"     ;
+static const char CRIAR_PECA_CMD        [ ] = "=criarpeca"    ;
 static const char LIBERAR_PECA_CMD      [ ] = "=liberarpeca"  ;
-static const char MOVER_PECA_CMD      [ ] = "=moverpeca"    ;
+static const char MOVER_PECA_CMD      	[ ] = "=moverpeca"    ;
 
 
 #define TRUE  1
@@ -37,23 +37,26 @@ static const char MOVER_PECA_CMD      [ ] = "=moverpeca"    ;
 
 #define DIM_VT_PECA   10
 
-LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
+PEC_tppPeca vtPecas[ DIM_VT_PECA];
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
    static void DestruirValor( void * pValor ) ;
 
-   static int ValidarInxLista( int inxLista , int Modo ) ;
+   static int ValidarInxPeca( int inxPeca ) ;
+   
+   static int Mover( int inicialX, int inicialY, int finalX, int finalY);
+
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TLIS &Testar lista
+*  $FC Função: TPEC &Testar Peca
 *
 *  $ED Descrição da função
-*     Podem ser criadas até 10 listas, identificadas pelos índices 0 a 10
+*     Podem ser criadas até 10 pecas, identificadas pelos índices 0 a 10
 *
 *     Comandos disponíveis:
 *
@@ -65,7 +68,7 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
 
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste ){
 
-      int inxPeca  = -1 ,
+      int inxPeca    = -1 ,
           numLidos   = -1 ,
           CondRetEsp = -1 
 		;
@@ -86,7 +89,7 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
                        &inxPeca, &tipoPeca, &corPeca, &CondRetEsp) ;
 
             if ( ( numLidos != 4 )
-              || ( ! ValidarInxPeca( inxPeca)))
+              || ( !ValidarInxPeca( inxPeca )))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -96,26 +99,26 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
 			
 
             CondRet =
-                 PEC_CriarPeca(&(vtPecas[ inxPeca]), pTipoPeca, pCorPeca, Mover) ;
+                 PEC_CriarPeca(&(vtPecas[inxPeca]), pTipoPeca, pCorPeca, Mover) ;
 				 
-            return TST_CompararInt( CondRetEsp ,CondRet ,
+            return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao criar peca.") ;
 
         } /* fim ativa: Testar CriarPeca */
 
       /* Testar Esvaziar Liberar Peca */
-        else if ( strcmp( ComandoTeste , LIBERAR_PECA_CMD) == 0 ){
+        else if ( strcmp(ComandoTeste, LIBERAR_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "ii" ,
+            numLidos = LER_LerParametros("ii",
                                &inxPeca, &CondRetEsp) ;
 
             if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista(inxPeca)))
+              || ( !ValidarInxPeca(inxPeca)))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = PEC_LiberarPeca(vtListas[ inxLista ] ) ;
+            CondRet = PEC_LiberarPeca( vtPecas[inxPeca] ) ;
 			
 			return TST_CompararInt( CondRetEsp ,CondRet ,
                "Erro ao liberar peca.") ;
@@ -131,23 +134,23 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
 				fimY
 			;
 			
-            numLidos = LER_LerParametros( "iiiii" ,
+            numLidos = LER_LerParametros( "iiiiii" ,
                                &inxPeca, &iniX, &iniY, &fimX, &fimY, &CondRetEsp) ;
 
-            if ( ( numLidos != 5 )
-              || ( ! ValidarInxLista(inxPeca)))
+            if ( ( numLidos != 6 )
+              || ( ! ValidarInxPeca(inxPeca)))
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRet = PEC_Mover(&(vtListas[inxPeca]), iniX, iniY, fimX, fimY) ;
+            CondRet = PEC_Mover(vtPecas[inxPeca], iniX, iniY, fimX, fimY) ;
 
             return TST_CompararInt( CondRetEsp ,CondRet ,
                "Erro ao mover a peca.") ;
         } /* fim ativa: Testar Mover Peca */
 
       return TST_CondRetNaoConhec ;
-	}/* Fim função: TLIS &Testar lista */
+	}/* Fim função: TPEC &Testar Pecas */
 /*****  Código das funções encapsuladas no módulo  *****/
 
 
@@ -159,7 +162,7 @@ LIS_tppLista   vtPecas[ DIM_VT_PECA] ;
 
    int Mover( int inicialX, int inicialY, int finalX, int finalY)
    {
-		if((inicialX != finalX) && (inicialY != finalY){
+		if((inicialX != finalX) && (inicialY != finalY)){
 			return 0;
 		}
 		return 1;
