@@ -13,13 +13,13 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*	  2       gbha  3/out/2016 Conclusao desenvolvimento
+*	   3       gbha  4/out/2016 Conclusao desenvolvimento
+*	   2       gbha  3/out/2016 Continuacao desenvolvimento
 *     1       mcs   1/out/2016 Início desenvolvimento
 *
 *  $ED Descrição do módulo
 *   Implementa um tabuleiro generico para jogos organizado
-*	por linhas e colunas, ocupados por pecas (definidas no
-*	modulo PECA, ver PECA.h).
+*	por linhas e colunas, ocupados por elementos genericos.
 *	
 *	Um jogo pode ser desenvolvido com este tabuleiro que
 *	permite:
@@ -42,11 +42,11 @@ typedef struct TAB_tagTabuleiro* TAB_tppTabuleiro;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LIS Condições de retorno
+*  $TC Tipo de dados: TAB Condições de retorno
 *
 *
 *  $ED Descrição do tipo
-*     Condições de retorno das funções da lista
+*     Condições de retorno das funções do tabuleiro
 *
 ***********************************************************************/
 
@@ -56,258 +56,199 @@ typedef enum {
                /* Concluiu corretamente */
 
          TAB_CondRetErro
-               /* Faltou memória ao tentar criar um elemento de lista */
+               /* Nao concluiu a solicitacao */
 
 } TAB_tpCondRet ;
 
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Criar lista
+*  $FC Função: TAB  &Criar Tabuleiro
 *
 *  $ED Descrição da função
-*     Cria uma lista genérica duplamente encadeada.
-*     Os possíveis tipos são desconhecidos a priori.
-*     A tipagem é implicita.
-*     Não existe identificador de tipo associado à lista.
+*     Cria um tabuleiro genérico para jogos.
 *
 *  $EP Parâmetros
-*     ExcluirValor  - ponteiro para a função que processa a
-*                     exclusão do valor referenciado pelo elemento
-*                     a ser excluído.
-*                     Ver descrição do módulo.
+*     numColunas  - Número de colunas do tabuleiro.
+*
+*     numLinhas  - Número de linhas do tabuleiro.
+*
+*     novoTabuleiro  - Ponteiro para o endereço de tabuleiro, para passagem do retorno
+*		por referencia.
 *
 *  $FV Valor retornado
-*     Se executou corretamente retorna o ponteiro para a lista.
-*     Este ponteiro será utilizado pelas funções que manipulem esta lista.
-*
-*     Se ocorreu algum erro, por exemplo falta de memória ou dados errados,
-*     a função retornará NULL.
-*     Não será dada mais informação quanto ao problema ocorrido.
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tppLista LIS_CriarLista(
-             void   ( * ExcluirValor ) ( void * pDado ) ) ;
-
+   TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
+		TAB_tppTabuleiro* novoTabuleiro);
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Destruir lista
+*  $FC Função: TAB  &Inserir peca
 *
 *  $ED Descrição da função
-*     Destrói a lista fornecida.
-*     O parâmetro ponteiro para a lista não é modificado.
-*     Se ocorrer algum erro durante a destruição, a lista resultará
-*     estruturalmente incorreta.
-*     OBS. não existe previsão para possíveis falhas de execução.
+*     Insere uma peca no tabuleiro genérico para jogos.
+*
+*  $EP Parâmetros
+*     linha  - Posicao X no tabuleiro.
+*
+*     coluna  - Posicao Y no tabuleiro.
+*
+*     peca  - Ponteiro para elemento da posicao.
 *
 *  $FV Valor retornado
-*     LIS_CondRetOK    - destruiu sem problemas
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   void LIS_DestruirLista( LIS_tppLista pLista ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: LIS  &Esvaziar lista
-*
-*  $ED Descrição da função
-*     Elimina todos os elementos, sem contudo eliminar a lista
-*
-*  $EP Parâmetros
-*     pLista - ponteiro para a lista a ser esvaziada
-*
-***********************************************************************/
-
-   void LIS_EsvaziarLista( LIS_tppLista pLista ) ;
-
+   TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
+		void* peca);
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Inserir elemento antes
+*  $FC Função: TAB  &Mover peca
 *
 *  $ED Descrição da função
-*     Insere novo elemento antes do elemento corrente.
-*     Caso a lista esteja vazia, insere o primeiro elemento da lista.
+*     Move uma peca no tabuleiro genérico para jogos.
 *
 *  $EP Parâmetros
-*     pLista - ponteiro para a lista onde deve ser inserido o elemento
-*     pValor - ponteiro para o valor do novo elemento
-*              Pode ser NULL
+*     inicialX  - Coordenada horizontal da posicao inicial da peca
+*
+*     inicialY  - Coordenada vertical da posicao inicial da peca
+*
+*     finalX  - Coordenada horizontal da posicao final da peca
+*
+*     finalY  - Coordenada vertical da posicao final da peca
 *
 *  $FV Valor retornado
-*     LIS_CondRetOK
-*     LIS_CondRetFaltouMemoria
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_InserirElementoAntes( LIS_tppLista pLista ,
-                                           void * pValor        ) ;
-
-
+   TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY);
+   
 /***********************************************************************
 *
-*  $FC Função: LIS  &Inserir elemento após
+*  $FC Função: TAB  &Retirar peca
 *
 *  $ED Descrição da função
-*     Insere novo elemento apás o elemento corrente.
-*     Caso a lista esteja vazia, insere o primeiro elemento da lista.
+*     Retira uma peca no tabuleiro genérico para jogos.
 *
 *  $EP Parâmetros
-*     Parâmetros
-*        pLista - ponteiro para a lista onde deve ser inserido o elemento
-*        pValor - ponteiro para o valor do novo elemento
-*                 Pode ser NULL
-*           
+*     inicialX  - Coordenada horizontal da posicao da peca
+*
+*     inicialY  - Coordenada vertical da posicao  da peca
 *
 *  $FV Valor retornado
-*     Valor retornado
-*        LIS_CondRetOK
-*        LIS_CondRetFaltouMemoria
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista pLista ,
-                                          void * pValor        )
-       ;
-
+   TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY);
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Excluir elemento
+*  $FC Função: TAB  &Obter peca
 *
 *  $ED Descrição da função
-*     Exclui o elemento corrente da lista dada.
-*     Se existir o elemento aa esquerda do corrente será o novo corrente.
-*     Se não existir e existir o elemento à direita, este se tornará corrente.
-*     Se este também não existir a lista tornou-se vazia.
+*     Obtem uma peca no tabuleiro genérico para jogos.
 *
 *  $EP Parâmetros
-*     pLista    - ponteiro para a lista na qual deve excluir.
+*     inicialX  - Coordenada horizontal da posicao da peca
+*
+*     inicialY  - Coordenada vertical da posicao da peca
+*
+*     nome  - Nome da peca na posicao, passado por referencia.
+*
+*     cor  - Nome da peca na posicao, passado por referencia.
 *
 *  $FV Valor retornado
-*     LIS_CondRetOK
-*     LIS_CondRetListaVazia
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_ExcluirElemento( LIS_tppLista pLista ) ;
-
-
+	TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, char* nome, char* cor);
+	
 /***********************************************************************
 *
-*  $FC Função: LIS  &Obter referência para o valor contido no elemento
+*  $FC Função: TAB  &Obter ameacantes
 *
 *  $ED Descrição da função
-*     Obtem a referência para o valor contido no elemento corrente da lista
+*     Obtem a cabeca da lista de ameacantes.
 *
 *  $EP Parâmetros
-*     pLista - ponteiro para a lista de onde se quer o valor
+*     inicialX  - Coordenada horizontal da posicao da peca
+*
+*     inicialY  - Coordenada vertical da posicao  da peca
+*
+*     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
 *
 *  $FV Valor retornado
-*     não NULL - se o elemento corrente existe
-*     NULL     - se a lista estiver vazia
-*                Pode retornar NULL se o valor inserido no elemento for NULL.
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   void * LIS_ObterValor( LIS_tppLista pLista ) ;
-
-
+	TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista);
+	
 /***********************************************************************
 *
-*  $FC Função: LIS  &Ir para o elemento inicial
+*  $FC Função: TAB  &Obter ameacados
 *
 *  $ED Descrição da função
-*     Torna corrente o primeiro elemento da lista.
-*     Faz nada se a lista está vazia.
+*     Obtem a cabeca da lista de ameacados.
 *
 *  $EP Parâmetros
-*     pLista - ponteiro para a lista a manipular
+*     inicialX  - Coordenada horizontal da posicao da peca
 *
-***********************************************************************/
-
-   void IrInicioLista( LIS_tppLista pLista ) ;
-
-
-/***********************************************************************
+*     inicialY  - Coordenada vertical da posicao  da peca
 *
-*  $FC Função: LIS  &Ir para o elemento final
-*
-*  $ED Descrição da função
-*     Torna corrente o elemento final da lista.
-*     Faz nada se a lista está vazia.
-*
-*  $EP Parâmetros
-*     pLista - ponteiro para a lista a manipular
-*
-***********************************************************************/
-
-   void IrFinalLista( LIS_tppLista pLista ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: LIS  &Avançar elemento
-*
-*  $ED Descrição da função
-*     Avança o elemento corrente numElem elementos na lista
-*     Se numElem for positivo avança em direção ao final
-*     Se numElem for negativo avança em direção ao início
-*     numElem pode ser maior do que o númro de elementos existentes na
-*               direção desejada
-*     Se numElem for zero somente verifica se a lista está vazia
-*
-*  $EP Parâmetros
-*     pLista  - ponteiro para a lista a ser manipulada
-*     numElem - o número de elementos a andar
+*     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
 *
 *  $FV Valor retornado
-*     CondRetOK         - se numElem elementos tiverem sido andados
-*     CondRetFimLista   - se encontrou o fim da lista antes de andar numElem
-*                         elementos
-*     CondRetListaVazia - se a lista está vazia
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_AvancarElementoCorrente( LIS_tppLista pLista ,
-                                              int numElem ) ;
-
+	TAB_tpCondRet TAB_ObterListaAmeacados(int inicialX, char inicialY, LIS_tppLista* lista);
 
 /***********************************************************************
 *
-*  $FC Função: LIS  &Procurar elemento contendo valor
+*  $FC Função: TAB  &Destriuir tabuleiro
 *
 *  $ED Descrição da função
-*     Procura o elemento que referencia o valor dado.
-*     A função compara ponteiro e não conteúdo apontado.
+*     Libera a memoria do tabuleiro e todas as suas pecas.
 *
 *  $EP Parâmetros
-*     pLista  - ponteiro para a lista onde procura
-*     pValor  - ponteiro para o valor procurado
-*               Pode ser NULL
+*     inicialX  - Coordenada horizontal da posicao da peca
+*
+*     inicialY  - Coordenada vertical da posicao  da peca
+*
+*     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
 *
 *  $FV Valor retornado
-*     LIS_CondRetOK  - se encontrou.
-*                      O elemento corrente é o primeiro elemento do
-*                      elemento corrente inclusive para o fim da lista
-*                      e que contém o ponteiro procurado
-*
-*     LIS_CondRetNaoEncontrou - se o ponteiro não foi encontrado
-*                      O elemento corrente continua o mesmo
-*     LIS_CondRetListaVazia   - se a lista estiver vazia
+*     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetErro - Caso contrário.
+* 
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
-                                    void * pValor        ) ;
+	TAB_tpCondRet TAB_DestruirTabuleiro();
+	
+/********** Fim do módulo de definição: TAB Tabuleiro de jogo genérico. **********/
 
-#undef LISTA_EXT
-
-/********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
-
-#else
-#endif

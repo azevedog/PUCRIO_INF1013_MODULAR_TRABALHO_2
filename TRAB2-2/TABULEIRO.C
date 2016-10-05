@@ -12,7 +12,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*	   2       gbha  3/out/2016 Conclusao desenvolvimento
+*	   3       gbha  4/out/2016 Conclusao desenvolvimento
+*	   2       gbha  3/out/2016 Continuacao desenvolvimento
 *     1       mcs   1/out/2016 início desenvolvimento
 *
 ***************************************************************************/
@@ -23,24 +24,47 @@
 #include   <malloc.h>
 #include   <assert.h>
 #include "TABULEIRO.h"
+#include "LISTA.h"
+
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LIS Descritor da cabeça de lista
+*  $TC Tipo de dados: TAB Elemento do tabuleiro
+*
+*
+***********************************************************************/
+
+   typedef struct tagElemTabuleiro {
+
+         void * pValor ;
+               /* Ponteiro para o valor contido no elemento */
+
+         LIS_tppLista ameacantes;
+               /* Ponteiro para elementos que podem ocupar essa posicao */
+
+         LIS_tppLista ameacados;
+               /* Ponteiro para elementos de posicoes que posso ocupar */
+
+   } tpElemTabuleiro;
+   
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: TAB Descritor do tabuleiro
 *
 *
 ***********************************************************************/
 
    typedef struct TAB_tagTabuleiro {
 
-        PEC_tppPeca** posicoes;
+        tpElemTabuleiro** posicoes;
                /* Matriz de posicoes do tabuleiro*/
 			   
    } TAB_tpTabuleiro ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static void LiberarElemento( LIS_tppLista   pLista ,
+  /* static void LiberarElemento( LIS_tppLista   pLista ,
                                 tpElemLista  * pElem   ) ;
 
    static tpElemLista * CriarElemento( LIS_tppLista pLista ,
