@@ -12,6 +12,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*	   3       gbha  5/out/2016 Conclusao desenvolvimento
+*	   2       gbha  4/out/2016 Continuacao desenvolvimento
 *     1       mcs   1/out/2016 início desenvolvimento
 *
 *
@@ -29,17 +31,16 @@
 #include    "TABULEIRO.h"
 
 
-static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
-static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"     ;
-static const char DESTRUIR_LISTA_CMD      [ ] = "=destruirlista"  ;
-static const char ESVAZIAR_LISTA_CMD      [ ] = "=esvaziarlista"  ;
-static const char INS_ELEM_ANTES_CMD      [ ] = "=inselemantes"   ;
-static const char INS_ELEM_APOS_CMD       [ ] = "=inselemapos"    ;
-static const char OBTER_VALOR_CMD         [ ] = "=obtervalorelem" ;
-static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
-static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
-static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
-static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
+
+static const char CRIAR_TAB_CMD         [ ] = "=criartabuleiro"     ;
+static const char INSERIR_PECA_CMD         [ ] = "=inserirpeca"     ;
+static const char MOVER_PECA_CMD         [ ] = "=moverpeca"     ;
+static const char RETIRAR_PECA_CMD         [ ] = "=retirarpeca"     ;
+static const char OBTER_PECA_CMD         [ ] = "=obterpeca"     ;
+static const char OBTER_CADOS_CMD         [ ] = "=obtercados"     ;
+static const char OBTER_CANTES_CMD         [ ] = "=obtercantes"     ;
+static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirlista"  ;
+
 
 
 #define TRUE  1

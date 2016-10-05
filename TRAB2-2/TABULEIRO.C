@@ -152,26 +152,6 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Obter ameacados */
 
-/***********************************************************************
-*
-*  $FC Função: TAB  &Destriuir tabuleiro
-*
-*  $ED Descrição da função
-*     Libera a memoria do tabuleiro e todas as suas pecas.
-*
-*  $EP Parâmetros
-*     inicialX  - Coordenada horizontal da posicao da peca
-*
-*     inicialY  - Coordenada vertical da posicao  da peca
-*
-*     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
-*
-*  $FV Valor retornado
-*     TAB_CondRetOK - Se executou corretamente.
-*     TAB_CondRetErro - Caso contrário.
-* 
-*
-***********************************************************************/
 
 	/***************************************************************************
 *
@@ -189,77 +169,6 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 /*****  Código das funções encapsuladas no módulo  *****/
 
 
-/***********************************************************************
-*
-*  $FC Função: LIS  -Liberar elemento da lista
-*
-*  $ED Descrição da função
-*     Elimina os espaços apontados pelo valor do elemento e o
-*     próprio elemento.
-*
-***********************************************************************/
 
-   void LiberarElemento( LIS_tppLista   pLista ,
-                         tpElemLista  * pElem   )
-   {
-
-      if ( ( pLista->ExcluirValor != NULL )
-        && ( pElem->pValor != NULL        ))
-      {
-         pLista->ExcluirValor( pElem->pValor ) ;
-      } /* if */
-
-      free( pElem ) ;
-
-      pLista->numElem-- ;
-
-   } /* Fim função: LIS  -Liberar elemento da lista */
-
-
-/***********************************************************************
-*
-*  $FC Função: LIS  -Criar o elemento
-*
-***********************************************************************/
-
-   tpElemLista * CriarElemento( LIS_tppLista pLista ,
-                                void *       pValor  )
-   {
-
-      tpElemLista * pElem ;
-
-      pElem = ( tpElemLista * ) malloc( sizeof( tpElemLista )) ;
-      if ( pElem == NULL )
-      {
-         return NULL ;
-      } /* if */
-
-      pElem->pValor = pValor ;
-      pElem->pAnt   = NULL  ;
-      pElem->pProx  = NULL  ;
-
-      pLista->numElem ++ ;
-
-      return pElem ;
-
-   } /* Fim função: LIS  -Criar o elemento */
-
-
-/***********************************************************************
-*
-*  $FC Função: LIS  -Limpar a cabeça da lista
-*
-***********************************************************************/
-
-   void LimparCabeca( LIS_tppLista pLista )
-   {
-
-      pLista->pOrigemLista = NULL ;
-      pLista->pFimLista = NULL ;
-      pLista->pElemCorr = NULL ;
-      pLista->numElem   = 0 ;
-
-   } /* Fim função: LIS  -Limpar a cabeça da lista */
-
-/********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
+/********** Fim do módulo de implementação: TAB  Tabuleiro de jogo generico **********/
 
