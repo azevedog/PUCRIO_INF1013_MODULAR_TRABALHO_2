@@ -100,6 +100,10 @@ typedef enum {
 *
 *     peca  - Ponteiro para elemento da posicao.
 *
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
+*
+*		OBS: ESSA FUNCAO NAO VALIDA SE ESTA INSERINDO POR CIMA DE OUTRA PECA
+*		CABE AO JOGO VALIDAR ISSO OBTENDO A PECA NA POSICAO ANTES!
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
 *     TAB_CondRetErro - Caso contrário.
@@ -108,7 +112,7 @@ typedef enum {
 ***********************************************************************/
 
    TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
-		void* peca);
+		void* peca, TAB_tppTabuleiro tabuleiro);
 
 /***********************************************************************
 *
@@ -233,6 +237,7 @@ typedef enum {
 *
 *  $ED Descrição da função
 *     Libera a memoria do tabuleiro e todas as suas pecas.
+*
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.

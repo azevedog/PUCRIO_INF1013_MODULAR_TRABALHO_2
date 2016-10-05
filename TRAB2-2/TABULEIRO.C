@@ -107,6 +107,9 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 	for(lin =0; lin <= numLinhas; lin++){
 		(*novoTabuleiro)->posicoes[lin] = 
 			 (tagElemTabuleiro*) malloc(sizeof(tagElemTabuleiro)*numColunas);
+		for(col = 0; col <= numColunas; col++){
+			(*novoTabuleiro)->posicoes[lin][col]->pValor = NULL;
+		}
 	}		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Criar Tabuleiro */
@@ -168,8 +171,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Obter ameacantes
 *  ****/
- TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista){
+ TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista lista){
 		
+		if(lista != NULL){
+			LIS_DestruirLista(lista);
+		}
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Obter ameacantes */
