@@ -97,8 +97,8 @@
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ), LIS_tppLista* pLista )
-   {
+   LIS_tpCondRet LIS_CriarLista( char * idLista, void ( * ExcluirValor ) ( void * pDado ),
+   LIS_tppLista* pLista ){
 
       char * identificaLista;
       int contarChar = strlen(idLista);

@@ -23,6 +23,7 @@
 #include   <memory.h>
 #include   <malloc.h>
 #include   <assert.h>
+#include <ctype.h>
 #include "TABULEIRO.h"
 #include "LISTA.h"
 
@@ -60,15 +61,27 @@
         tpElemTabuleiro** posicoes;
                /* Matriz de posicoes do tabuleiro*/
 			   
+		int linhas;
+				/* Numero de linhas no tabuleiro. */
+				
+		int colunas;
+				/* Numero de colunas no tabuleiro. */
+			   
    } TAB_tpTabuleiro ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-  /* static void LiberarElemento( LIS_tppLista   pLista ,
+
+	static tpElemLista* CriarElemento(void* pValor);
+	
+	static TAB_tpCondRet posicaoValida(int x, int y, TAB_tpTabuleiro tabuleiro);
+	
+	static int converteColuna(char coluna);
+
+   /*static void LiberarElemento( LIS_tppLista   pLista ,
                                 tpElemLista  * pElem   ) ;
 
-   static tpElemLista * CriarElemento( LIS_tppLista pLista ,
-                                       void *       pValor  ) ;
+   
 
    static void LimparCabeca( LIS_tppLista pLista ) ;
 
@@ -81,9 +94,22 @@
 TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		TAB_tppTabuleiro* novoTabuleiro){
 		
-		
+	int lin;
+	
+	(*novoTabuleiro) =  (TAB_tpTabuleiro*) malloc(sizeof(TAB_tpTabuleiro));
+	if ((*novoTabuleiro) == NULL ){
+      return TAB_CondRetErro ;
+    } /* if */
+	
+	(*novoTabuleiro)->posicoes = (tagElemTabuleiro**)
+	malloc(sizeof(tagElemTabuleiro*)*numLinhas);
+	  
+	for(lin =0; lin <= numLinhas; lin++){
+		(*novoTabuleiro)->posicoes[lin] = 
+			 (tagElemTabuleiro*) malloc(sizeof(tagElemTabuleiro)*numColunas);
+	}		
 		return TAB_CondRetOK;
-	}/* Fim função: TAB  &Criar Tabuleirol */
+	}/* Fim função: TAB  &Criar Tabuleiro */
 
 
 /***************************************************************************
@@ -91,8 +117,15 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *  Função: TAB  &Inserir peca no tabuleiro
 *  ****/
  TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
-		void* peca){
+		void* peca, TAB_tppTabuleiro tabuleiro){
 		
+		int col = converteColuna(coluna);
+		
+		if(!posicaoValida(linha, col, tabuleiro)){
+			return TAB_CondRetErro;
+		}
+		
+		tabuleiro->posicoes[linha][col] = CriarElemento(peca);
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Inserir peca no tabuleiro */
 
@@ -168,7 +201,58 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
+/***********************************************************************
+*
+*  $FC Função: TAB  -Criar o elemento
+*
+***********************************************************************/
 
+   tpElemTabuleiro* CriarElemento(void* pValor){
+
+      tpElemTabuleiro* pElem ;
+
+      pElem = (tpElemTabuleiro*) malloc( sizeof( tpElemTabuleiro )) ;
+      if ( pElem == NULL )
+      {
+         return NULL ;
+      } /* if */
+
+      pElem->pValor = pValor ;
+      pElem->ameacantes   = NULL  ;
+      pElem->ameacados  = NULL  ;
+	  
+      return pElem ;
+   } /* Fim função: TAB  -Criar o elemento */
+   
+/***********************************************************************
+*
+*  $FC Função: TAB  -Validar posicao
+*
+***********************************************************************/
+
+   int posicaoValida(int x, int y, TAB_tppTabuleiro tabuleiro){
+
+		if((x < 0) || (x > tabuleiro->linhas) ||
+			(y < 0) ||(y > tabuleiro->colunas)){
+			return TAB_CondRetErro;
+		}
+		
+		return TAB_CondRetOK;
+	}/* Fim função: TAB  -Validar posicao */
+	
+/***********************************************************************
+*
+*  $FC Função: TAB  -Converte coordenada da coluna
+*
+***********************************************************************/
+
+   int converteColuna(char coluna){
+		
+		int lower = toLower(coluna);
+		return lower - 'a';
+	}/* Fim função: TAB  -Converte coordenada da coluna*/	
+	
+   
 
 /********** Fim do módulo de implementação: TAB  Tabuleiro de jogo generico **********/
 
