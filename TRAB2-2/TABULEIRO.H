@@ -234,13 +234,6 @@ typedef enum {
 *  $ED Descrição da função
 *     Libera a memoria do tabuleiro e todas as suas pecas.
 *
-*  $EP Parâmetros
-*     inicialX  - Coordenada horizontal da posicao da peca
-*
-*     inicialY  - Coordenada vertical da posicao  da peca
-*
-*     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
-*
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
 *     TAB_CondRetErro - Caso contrário.
