@@ -1,0 +1,6 @@
+/OUT:TestePeca.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+TestPec.obj  Peca.obj  
+..\Libs\ArcaboucoTeste.lib
+

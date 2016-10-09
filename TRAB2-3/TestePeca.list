@@ -1,0 +1,115 @@
+GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
+   LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
+
+Composição do construto: TestePeca.comp
+
+   Nome do Construto:           TestePeca
+   Diretório base:              C:\MODULAR_T2\TRAB2-3
+
+   Arquivo composição:          TestePeca.comp
+   Arquivo plataforma:          gmake.parm
+
+   Arquivo diretivas MAKE:      TestePeca.make
+   Arquivo diretivas LINK:      TestePeca.build
+   Arquivo listagem:            TestePeca.list
+
+Módulos do construto: TestePeca.comp
+
+   TestPec.c
+   Peca.c
+
+Estatísticas do construto
+
+   Estatísticas do arquivo: Generico.h
+      Total linhas:             713
+      Linhas de código:          59
+      Linhas de comentário:     572
+      Linhas em branco:          82
+   Arquivos de inclusão de que necessita
+      TST_Espc.h
+   Arquivos em que é incluído
+      TestPec.c
+
+   Estatísticas do arquivo: LerParm.h
+      Total linhas:             291
+      Linhas de código:          36
+      Linhas de comentário:     188
+      Linhas em branco:          67
+   Arquivos em que é incluído
+      TestPec.c
+
+   Estatísticas do arquivo: PECA.h
+      Total linhas:             167
+      Linhas de código:          12
+      Linhas de comentário:     138
+      Linhas em branco:          17
+   Arquivos em que é incluído
+      Peca.c
+      TestPec.c
+
+   Estatísticas do arquivo: Peca.c
+      Total linhas:             147
+      Linhas de código:          58
+      Linhas de comentário:      62
+      Linhas em branco:          31
+   Arquivos de inclusão de que necessita
+      PECA.h
+
+   Estatísticas do arquivo: TST_Espc.h
+      Total linhas:             228
+      Linhas de código:          23
+      Linhas de comentário:     185
+      Linhas em branco:          20
+   Arquivos em que é incluído
+      Generico.h
+      TestPec.c
+
+   Estatísticas do arquivo: TestPec.c
+      Total linhas:             191
+      Linhas de código:          90
+      Linhas de comentário:      55
+      Linhas em branco:          52
+   Arquivos de inclusão de que necessita
+      Generico.h
+      LerParm.h
+      PECA.h
+      TST_Espc.h
+
+Totais por tipo de arquivo
+
+  Tipo: obj      Path: .
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: err      Path: .
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: DEFAULT  Path: .
+         Total linhas do tipo:      1399
+         Linhas de código:           130
+         Linhas de comentário:      1083
+         Linhas em branco:           186
+         Arquivos deste tipo:          4
+
+  Tipo: c        Path: .
+         Total linhas do tipo:       338
+         Linhas de código:           148
+         Linhas de comentário:       117
+         Linhas em branco:            83
+         Arquivos deste tipo:          2
+
+Totais para todo o construto TestePeca
+
+   Total linhas:              1737
+   Linhas de código:           278
+   Linhas de comentário:      1200
+   Linhas em branco:           269
+   Arquivos processados:         6
+

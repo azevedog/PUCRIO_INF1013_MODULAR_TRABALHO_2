@@ -113,6 +113,20 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca){
 	return PEC_CondRetOK;
 } /* Fim função: PEC  &LiberarPeca */
 
+/***************************************************************************
+*
+*  Função: PEC  &ComparaPeca
+*  ****/
+PEC_tpCondRet ComparaPeca(void* elem1, void* elem2){
+	PEC_tppPeca pPeca1 = (PEC_tppPeca) elem1;
+	PEC_tppPeca pPeca2 = (PEC_tppPeca) elem2;
+	
+	if(pPeca1->corTime == pPeca2->corTime){
+		return PEC_CondRetMesmoTime;
+	}
+	return PEC_CondRetMesmoTime;
+}
+
 
 /*****  Código das funções encapsuladas no módulo  *****/
 

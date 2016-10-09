@@ -45,8 +45,14 @@ typedef struct PEC_tagPeca* PEC_tppPeca ;
          PEC_CondRetOK,
                /* Concluiu corretamente */
 			   
-		 PEC_CondRetERRO
+		 PEC_CondRetERRO,
                /* Concluiu com erro */
+			   
+		 PEC_CondRetTimeDiferente,
+               /* Duas pecas NAO tem a mesma cor*/
+			   
+		 PEC_CondRetMesmoTime
+               /* Duas pecas tem a mesma cor*/
 
    } PEC_tpCondRet;
  
@@ -134,4 +140,28 @@ PEC_tpCondRet PEC_Mover(PEC_tppPeca pPeca, int inicialX, int inicialY, int final
 ***********************************************************************/
 
 PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca) ;
+
+/***********************************************************************
+*
+*  $FC Função: PEC  &ComparaPeca
+*
+*  $ED Descrição da função
+*     Determina se duas pecas sao do mesmo time pela sua cor.
+*
+*  $EP Parâmetros
+*     elem1  - Ponteiro para peca 1.
+*
+*     elem2  - Ponteiro para peca 2.
+*
+*  $FV Valor retornado
+*     PEC_CondRetTimeDiferente, se as duas pecas NAO tem a mesma cor
+			   
+	   PEC_CondRetMesmoTime, se as duas pecas TEM a mesma cor.
+*
+*     Se ocorreu algum erro, retorna PEC_CondRetERRO.
+*     Não será dada mais informação quanto ao problema ocorrido.
+*
+***********************************************************************/
+PEC_tpCondRet ComparaPeca(void* elem1, void* elem2);
+
 /********** Fim do módulo de definição: PEC Peca de um jogo de tabuleiro**********/

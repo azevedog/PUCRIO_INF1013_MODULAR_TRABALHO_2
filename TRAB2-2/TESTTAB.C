@@ -62,6 +62,11 @@ TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 		/* Essa funcao é de peca, mas enquanto nao existe um modulo jogo
 		que use essa condicao de criar a peca e inserir de fora, o teste do 
 		tabuleiro deve exercer essa funcao (simular minimamente um jogo)*/
+		
+	static void ExcluirValor ( void * pDado );
+		/* Essa funcao é de lista, mas enquanto nao existe um modulo jogo
+		que use essa condicao inserir de fora, o teste do tabuleiro deve exercer
+		essa funcao (simular minimamente um jogo)*/
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -142,7 +147,7 @@ TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 			}
 
             CondRet = TAB_tpCondRet TAB_InserirPeca(x, y,
-			pPeca, tab, void ( * ExcluirValor ) ( void * pDado ));
+			pPeca, tab, ExcluirValor);
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao inserir peca.") ;
@@ -151,7 +156,7 @@ TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
       /* Testar Mover peca */
         else if  ( strcmp( ComandoTeste , MOVER_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "iii" ,
+            numLidos = LER_LerParametros( "sisi" ,
                        &CondRetEsp ) ;
 
             if (numLidos != 3){
@@ -268,24 +273,17 @@ TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 		}
 		return 1;
    } /* Fim função: TTAB -Mover */
-
-
+   
+   
 /***********************************************************************
 *
-*  $FC Função: TLIS -Destruir valor
+*  $FC Função: TTAB -Excluir simulando jogo
 *
 ***********************************************************************/
 
-    /* Fim função: TLIS -Destruir valor */
-
-
-/***********************************************************************
-*
-*  $FC Função: TLIS -Validar indice de lista
-*
-***********************************************************************/
-
-  /* Fim função: TLIS -Validar indice de lista */
-
+   void ExcluirValor ( void * pDado ) {
+		PEC_LiberarPeca(pDado);
+   } /* Fim função: TTAB -Excluir */   
+   
 /********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
 
