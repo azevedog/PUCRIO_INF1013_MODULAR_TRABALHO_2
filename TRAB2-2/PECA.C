@@ -117,7 +117,7 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca){
 *
 *  Função: PEC  &ComparaPeca
 *  ****/
-PEC_tpCondRet ComparaPeca(void* elem1, void* elem2){
+PEC_tpCondRet PEC_ComparaPeca(void* elem1, void* elem2){
 	PEC_tppPeca pPeca1 = (PEC_tppPeca) elem1;
 	PEC_tppPeca pPeca2 = (PEC_tppPeca) elem2;
 	

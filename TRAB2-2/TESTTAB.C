@@ -64,6 +64,12 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 		/* Essa funcao é de lista, mas enquanto nao existe um modulo jogo
 		que use essa condicao inserir de fora, o teste do tabuleiro deve exercer
 		essa funcao (simular minimamente um jogo)*/
+		
+	static int Compara ( void* elem1, void* elem2);
+		/* Essa funcao é de peca, mas enquanto nao existe um modulo jogo
+		que use essa condicao de criar a peca e inserir de fora, o teste do 
+		tabuleiro deve exercer essa funcao (simular minimamente um jogo)*/
+		
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -96,14 +102,13 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 	  char y;
 
       int numLidos   = -1 ,
-          CondRetEsp = -1  ;
+          CondRetEsp = -1,
+		  CondRet = -1;
+	  TAB_tppTabuleiro tab = NULL;
+	  PEC_tppPeca pPeca = NULL;
 
-      TST_tpCondRet CondRet ;
-	  TAB_tppTabuleiro tab;
-	  PEC_tppPeca pPeca;
-
-      char   StringDado[  DIM_VALOR ] ;
-      char * pDado ;
+      //char   StringDado[  DIM_VALOR ] ;
+      //char * pDado ;
 
        /* Testar Criar tabuleiro */
          if  ( strcmp( ComandoTeste , CRIAR_TAB_CMD) == 0 )
@@ -127,10 +132,10 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
        /* Testar Inserir peca */
         else if  ( strcmp( ComandoTeste , INSERIR_PECA_CMD) == 0 ){
 
-			char identificador;
+			char identificador = 'T';
 			char corTime;
 			
-            numLidos = LER_LerParametros( "sisi" , &y, &x, &corTime,
+            numLidos = LER_LerParametros( "issi" , &x, &y, &corTime,
                        &CondRetEsp ) ;
 
             if (numLidos != 4){
@@ -143,8 +148,7 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 				CondRet = TAB_CondRetErro;
 			}
 
-            CondRet = TAB_InserirPeca(x, y,
-			pPeca, tab, ExcluirValor);
+            CondRet = TAB_InserirPeca(x, y, pPeca, tab, ExcluirValor);
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao inserir peca.") ;
@@ -153,14 +157,18 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
       /* Testar Mover peca */
         else if  ( strcmp( ComandoTeste , MOVER_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "sisi" ,
-                       &CondRetEsp ) ;
+			int finalX;
+			char finalY;
+			
+            numLidos = LER_LerParametros( "isisi" , &x, &y, &finalX, &finalY,
+                       &CondRetEsp) ;
 
-            if (numLidos != 3){
+            if (numLidos != 5){
                return TST_CondRetParm ;
             } /* if */
 
-            
+			CondRet = TAB_MoverPeca(x, y, finalX, finalY, Mover, tab,
+			Compara);
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao mover peca.") ;
@@ -280,6 +288,20 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 
    void ExcluirValor ( void * pDado ) {
 		PEC_LiberarPeca(pDado);
+   } /* Fim função: TTAB -Excluir */   
+   
+   
+ /***********************************************************************
+*
+*  $FC Função: TTAB -Compara simulando jogo
+*
+***********************************************************************/
+
+   int Compara ( void* elem1, void* elem2 ) {
+		if(PEC_ComparaPeca(elem1, elem2) == PEC_CondRetMesmoTime){
+			return 1;
+		}
+		return 0;
    } /* Fim função: TTAB -Excluir */   
    
 /********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/

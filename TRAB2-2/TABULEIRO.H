@@ -69,8 +69,6 @@ typedef enum {
          TAB_CondRetSubstituiuOutroElemento
                /* Movimento tirou um elemento original da posicao */
 			   
-			   
-
 } TAB_tpCondRet ;
 
 

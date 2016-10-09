@@ -162,6 +162,6 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca) ;
 *     Não será dada mais informação quanto ao problema ocorrido.
 *
 ***********************************************************************/
-PEC_tpCondRet ComparaPeca(void* elem1, void* elem2);
+PEC_tpCondRet PEC_ComparaPeca(void* elem1, void* elem2);
 
 /********** Fim do módulo de definição: PEC Peca de um jogo de tabuleiro**********/
