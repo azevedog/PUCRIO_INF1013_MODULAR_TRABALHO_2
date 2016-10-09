@@ -23,10 +23,9 @@
 #include   <memory.h>
 #include   <malloc.h>
 #include   <assert.h>
-#include <ctype.h>
-#include "TABULEIRO.h"
-#include "LISTA.h"
-
+#include	<ctype.h>
+#include	"TABULEIRO.h"
+#include	"LISTA.h"
 
 /***********************************************************************
 *
@@ -70,11 +69,8 @@
    } TAB_tpTabuleiro ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
-
-
-	static tpElemLista* CriarElemento(void* pValor);
 	
-	static TAB_tpCondRet posicaoValida(int x, int y, TAB_tpTabuleiro tabuleiro);
+	static TAB_tpCondRet posicaoValida(int x, int y, TAB_tppTabuleiro tabuleiro);
 	
 	static int converteColuna(char coluna);
 
@@ -94,21 +90,23 @@
 TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		TAB_tppTabuleiro* novoTabuleiro){
 		
-	int lin;
+	int lin, col;
 	
-	(*novoTabuleiro) =  (TAB_tpTabuleiro*) malloc(sizeof(TAB_tpTabuleiro));
+	(*novoTabuleiro) =  (TAB_tppTabuleiro) malloc(sizeof(TAB_tpTabuleiro));
 	if ((*novoTabuleiro) == NULL ){
       return TAB_CondRetErro ;
     } /* if */
 	
-	(*novoTabuleiro)->posicoes = (tagElemTabuleiro**)
-	malloc(sizeof(tagElemTabuleiro*)*numLinhas);
+	(*novoTabuleiro)->posicoes = (tpElemTabuleiro**)
+	malloc(sizeof(tpElemTabuleiro*)*numLinhas);
 	  
 	for(lin =0; lin <= numLinhas; lin++){
 		(*novoTabuleiro)->posicoes[lin] = 
-			 (tagElemTabuleiro*) malloc(sizeof(tagElemTabuleiro)*numColunas);
+			 (tpElemTabuleiro*) malloc(sizeof(tpElemTabuleiro)*numColunas);
 		for(col = 0; col <= numColunas; col++){
-			(*novoTabuleiro)->posicoes[lin][col]->pValor = NULL;
+			(*novoTabuleiro)->posicoes[lin][col].pValor = NULL;
+			(*novoTabuleiro)->posicoes[lin][col].ameacantes = NULL;
+			(*novoTabuleiro)->posicoes[lin][col].ameacados = NULL;
 		}
 	}		
 		return TAB_CondRetOK;
@@ -120,15 +118,39 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *  Função: TAB  &Inserir peca no tabuleiro
 *  ****/
  TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
-		void* peca, TAB_tppTabuleiro tabuleiro){
+		void* peca, TAB_tppTabuleiro tabuleiro, void ( * ExcluirValor ) ( void * pDado )){
 		
+		tpElemTabuleiro elem;
+		LIS_tppLista ameacados;
+		LIS_tppLista ameacantes;
+		char * idAmeacados;
+		char * idAmeacantes;
 		int col = converteColuna(coluna);
 		
 		if(!posicaoValida(linha, col, tabuleiro)){
 			return TAB_CondRetErro;
 		}
 		
-		tabuleiro->posicoes[linha][col] = CriarElemento(peca);
+		elem = tabuleiro->posicoes[linha][col];
+		
+		 idAmeacados = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		
+		ameacados = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
+		if(LIS_CriarLista(idAmeacados, ExcluirValor, &ameacados) != LIS_CondRetOK){
+			return TAB_CondRetErro;
+		}
+		
+		 idAmeacantes = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		
+		ameacantes = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
+		if(LIS_CriarLista(idAmeacantes, ExcluirValor, &ameacantes) != LIS_CondRetOK){
+			return TAB_CondRetErro;
+		}
+		
+		elem.pValor = peca;
+		elem.pValor = ameacantes;
+		elem.pValor = ameacados;
+		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Inserir peca no tabuleiro */
 
@@ -171,7 +193,7 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Obter ameacantes
 *  ****/
- TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista lista){
+ TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista){
 		
 		if(lista != NULL){
 			LIS_DestruirLista(lista);
@@ -206,29 +228,6 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
-
-/***********************************************************************
-*
-*  $FC Função: TAB  -Criar o elemento
-*
-***********************************************************************/
-
-   tpElemTabuleiro* CriarElemento(void* pValor){
-
-      tpElemTabuleiro* pElem ;
-
-      pElem = (tpElemTabuleiro*) malloc( sizeof( tpElemTabuleiro )) ;
-      if ( pElem == NULL )
-      {
-         return NULL ;
-      } /* if */
-
-      pElem->pValor = pValor ;
-      pElem->ameacantes   = NULL  ;
-      pElem->ameacados  = NULL  ;
-	  
-      return pElem ;
-   } /* Fim função: TAB  -Criar o elemento */
    
 /***********************************************************************
 *

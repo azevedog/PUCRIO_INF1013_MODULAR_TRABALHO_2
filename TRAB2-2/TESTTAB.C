@@ -29,6 +29,7 @@
 #include    "LerParm.h"
 
 #include    "TABULEIRO.h"
+#include	"PECA.h"
 
 
 

@@ -34,6 +34,8 @@
 *
 ***************************************************************************/
 
+#include "LISTA.h"
+
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referência para um tabuleiro */
@@ -111,8 +113,8 @@ typedef enum {
 *
 ***********************************************************************/
 
-   TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
-		void* peca, TAB_tppTabuleiro tabuleiro);
+    TAB_tpCondRet TAB_InserirPeca(int linha, char coluna,
+		void* peca, TAB_tppTabuleiro tabuleiro, void ( * ExcluirValor ) ( void * pDado ));
 
 /***********************************************************************
 *
