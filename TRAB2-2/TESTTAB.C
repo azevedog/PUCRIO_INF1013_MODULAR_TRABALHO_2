@@ -51,9 +51,6 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 #define NAO_VAZIO 1
 
 #define DIM_VALOR     100
-#define DIM_VT_TAB = 2
-
-TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -142,11 +139,11 @@ TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 			
 			pPeca  = *((PEC_tppPeca*) malloc(sizeof(PEC_tppPeca)));
 			
-			if(PEC_CriarPeca(&pPeca, &identificador, &corTime, MoverPeca)){
+			if(PEC_CriarPeca(&pPeca, &identificador, &corTime, Mover)){
 				CondRet = TAB_CondRetErro;
 			}
 
-            CondRet = TAB_tpCondRet TAB_InserirPeca(x, y,
+            CondRet = TAB_InserirPeca(x, y,
 			pPeca, tab, ExcluirValor);
 
             return TST_CompararInt(CondRetEsp, CondRet,
