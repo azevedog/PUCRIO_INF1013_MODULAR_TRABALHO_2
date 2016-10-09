@@ -156,7 +156,7 @@ PEC_tppPeca vtPecas[ DIM_VT_PECA];
 
 /***********************************************************************
 *
-*  $FC Função: TLIS -Mover (teste hardcoded para torre xadrez)
+*  $FC Função: TPEC -Mover (teste hardcoded para torre xadrez)
 *
 ***********************************************************************/
 
@@ -166,7 +166,7 @@ PEC_tppPeca vtPecas[ DIM_VT_PECA];
 			return 0;
 		}
 		return 1;
-   } /* Fim função: TLIS -Mover */
+   } /* Fim função: TPEC -Mover */
 
 
 /***********************************************************************

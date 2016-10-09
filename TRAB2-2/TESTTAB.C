@@ -51,14 +51,12 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 #define NAO_VAZIO 1
 
 #define DIM_VALOR     100
+#define DIM_VT_TAB = 2
+
+TAB_tppTabuleiro vtTab[ DIM_VT_PECA];
 
 
 /***** Protótipos das funções encapuladas no módulo *****/
-
-   static PEC_tppPeca CriarPeca();
-		/* Essa funcao é de peca, mas enquanto nao existe um modulo jogo
-		que use essa condicao de criar a peca e inserir de fora, o teste do 
-		tabuleiro deve exercer essa funcao (simular minimamente um jogo)*/
 
    static int Mover( int inicialX, int inicialY, int finalX, int finalY);
 		/* Essa funcao é de peca, mas enquanto nao existe um modulo jogo
@@ -91,12 +89,16 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
+   
+	  int x;
+	  char y;
 
       int numLidos   = -1 ,
           CondRetEsp = -1  ;
 
       TST_tpCondRet CondRet ;
 	  TAB_tppTabuleiro tab;
+	  PEC_tppPeca pPeca;
 
       char   StringDado[  DIM_VALOR ] ;
       char * pDado ;
@@ -105,15 +107,17 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
          if  ( strcmp( ComandoTeste , CRIAR_TAB_CMD) == 0 )
          {
 
-            numLidos = LER_LerParametros( "iii" ,
+            numLidos = LER_LerParametros( "sii" , &y, &x,
                        &CondRetEsp ) ;
 
             if (numLidos != 3){
                return TST_CondRetParm ;
             } /* if */
-
-            
-
+			
+			tab = *((TAB_tppTabuleiro*) malloc(sizeof(TAB_tppTabuleiro)));
+			
+			CondRet = TAB_CriarTabuleiro(y, x, &tab);
+			
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao criar tabuleiro.") ;
          } /* fim ativa: Testar Criar tabuleiro */
@@ -121,14 +125,24 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
        /* Testar Inserir peca */
         else if  ( strcmp( ComandoTeste , INSERIR_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "iii" ,
+			char identificador;
+			char corTime;
+			
+            numLidos = LER_LerParametros( "sisi" , &y, &x, &corTime,
                        &CondRetEsp ) ;
 
-            if (numLidos != 3){
+            if (numLidos != 4){
                return TST_CondRetParm ;
             } /* if */
+			
+			pPeca  = *((PEC_tppPeca*) malloc(sizeof(PEC_tppPeca)));
+			
+			if(PEC_CriarPeca(&pPeca, &identificador, &corTime, MoverPeca)){
+				CondRet = TAB_CondRetErro;
+			}
 
-            
+            CondRet = TAB_tpCondRet TAB_InserirPeca(x, y,
+			pPeca, tab, void ( * ExcluirValor ) ( void * pDado ));
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao inserir peca.") ;
@@ -239,6 +253,21 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
+
+
+/***********************************************************************
+*
+*  $FC Função: TTAB -Mover (teste hardcoded para torre xadrez)
+*
+***********************************************************************/
+
+   int Mover( int inicialX, int inicialY, int finalX, int finalY)
+   {
+		if((inicialX != finalX) && (inicialY != finalY)){
+			return 0;
+		}
+		return 1;
+   } /* Fim função: TTAB -Mover */
 
 
 /***********************************************************************
