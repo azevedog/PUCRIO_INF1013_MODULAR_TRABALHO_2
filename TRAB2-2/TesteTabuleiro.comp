@@ -10,6 +10,8 @@ err         =  .
 [Modulos]
 TestTab
 Tabuleiro
+Lista
+Peca
 
 [BuildInicio]
 /OUT:TesteTabuleiro.exe

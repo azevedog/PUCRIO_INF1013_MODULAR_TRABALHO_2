@@ -123,24 +123,29 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		tpElemTabuleiro elem;
 		LIS_tppLista ameacados;
 		LIS_tppLista ameacantes;
+		char prefixAmeacado =  'D';
+		char prefixAmeacante = 'T';
 		char * idAmeacados;
 		char * idAmeacantes;
 		int col = converteColuna(coluna);
 		
+		
 		if(!posicaoValida(linha, col, tabuleiro)){
-			return TAB_CondRetErro;
+			return TAB_CondRetForaTabuleiro;
 		}
 		
 		elem = tabuleiro->posicoes[linha][col];
 		
-		 idAmeacados = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		idAmeacados = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		strcpy(idAmeacados, &prefixAmeacado);
 		
 		ameacados = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
 		if(LIS_CriarLista(idAmeacados, ExcluirValor, &ameacados) != LIS_CondRetOK){
 			return TAB_CondRetErro;
 		}
 		
-		 idAmeacantes = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		idAmeacantes = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
+		strcpy(idAmeacantes, &prefixAmeacante);
 		
 		ameacantes = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
 		if(LIS_CriarLista(idAmeacantes, ExcluirValor, &ameacantes) != LIS_CondRetOK){
@@ -160,10 +165,36 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Mover peca no tabuleiro
 *  ****/
- TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY){
+ TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY,
+	int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY), TAB_tppTabuleiro tabuleiro,
+	int(* ComparaElementos)(void* elem1, void* elem2)){
 		
+		int iInicialY = converteColuna(inicialY);
+		int iFinalY = converteColuna(finalY);
+		TAB_tpCondRet ret;
 		
-		return TAB_CondRetOK;
+		if(!posicaoValida(finalX, iFinalY, tabuleiro)){
+			return TAB_CondRetForaTabuleiro;
+		}
+		
+		if(!MoverPeca(inicialX, iInicialY, finalX, iFinalY)){
+			return TAB_CondRetElementoNaoFaz;
+		}
+		
+		if(ComparaElementos(tabuleiro->posicoes[inicialX][iInicialY].pValor, tabuleiro->posicoes[finalX][iFinalY].pValor)){
+			ret = TAB_CondRetOK;
+		}
+		else{
+			ret = TAB_CondRetSubstituiuOutroElemento;
+		}
+
+		if(!TAB_RetirarPeca(finalX, finalY, tabuleiro)){
+			return TAB_CondRetErro;
+		}
+		
+		tabuleiro->posicoes[finalX][iFinalY] =  tabuleiro->posicoes[inicialX][iInicialY];
+
+		return ret;
 	}/* Fim função: TAB  &Mover peca no tabuleiro */
 
    
@@ -171,8 +202,21 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Retirar peca do tabuleiro
 *  ****/
- TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY){
+ TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY, TAB_tppTabuleiro tabuleiro){
+ 
+		int iInicialY = converteColuna(inicialY);
+ 
+		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+			return TAB_CondRetForaTabuleiro;
+		}
 		
+		if(tabuleiro->posicoes[inicialX][iInicialY].pValor == NULL){
+			return TAB_CondRetErro;
+		}
+		
+		tabuleiro->posicoes[inicialX][iInicialY].pValor = NULL;
+		LIS_DestruirLista(tabuleiro->posicoes[inicialX][iInicialY].ameacantes);
+		LIS_DestruirLista(tabuleiro->posicoes[inicialX][iInicialY].ameacados);
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Retirar peca do tabuleiro */
@@ -182,8 +226,16 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Obter peca do tabuleiro
 *  ****/
- TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, char* nome, char* cor){
+ TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, void** pValor,
+	TAB_tppTabuleiro tabuleiro){
 		
+		int iInicialY = converteColuna(inicialY);
+		
+		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+			return TAB_CondRetForaTabuleiro;
+		}
+		
+		(*pValor) = tabuleiro->posicoes[inicialX][iInicialY].pValor;
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Obter peca do tabuleiro */
@@ -193,11 +245,16 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Obter ameacantes
 *  ****/
- TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista){
+ TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista,
+	TAB_tppTabuleiro tabuleiro){
 		
-		if(lista != NULL){
-			LIS_DestruirLista(lista);
+		int iInicialY = converteColuna(inicialY);
+		
+		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+			return TAB_CondRetForaTabuleiro;
 		}
+		
+		(*lista) = tabuleiro->posicoes[inicialX][iInicialY].ameacantes;
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Obter ameacantes */
@@ -207,8 +264,16 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Obter ameacados
 *  ****/
- TAB_tpCondRet TAB_ObterListaAmeacados(int inicialX, char inicialY, LIS_tppLista* lista){
+ TAB_tpCondRet TAB_ObterListaAmeacados(int inicialX, char inicialY, LIS_tppLista* lista,
+	TAB_tppTabuleiro tabuleiro){
 		
+		int iInicialY = converteColuna(inicialY);
+		
+		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+			return TAB_CondRetForaTabuleiro;
+		}
+		
+		(*lista) = tabuleiro->posicoes[inicialX][iInicialY].ameacados;
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Obter ameacados */
@@ -218,9 +283,21 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 *  Função: TAB  &Destriuir tabuleiro
 *  ****/
- TAB_tpCondRet TAB_DestruirTabuleiro(){
+ TAB_tpCondRet TAB_DestruirTabuleiro(TAB_tppTabuleiro tabuleiro){
+	
+		int lin, col;
+		int numLinhas = tabuleiro->linhas;
+		int numColunas = tabuleiro->colunas;
 		
 		
+		for(lin =0; lin <= numLinhas; lin++){
+			for(col = 0; col <= numColunas; col++){
+				free(tabuleiro->posicoes[lin][col].pValor);
+				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacantes);
+				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
+				free(&(tabuleiro->posicoes[lin][col]));
+			}
+		}		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB &Destriuir tabuleiro */
 	

@@ -57,8 +57,19 @@ typedef enum {
          TAB_CondRetOK ,
                /* Concluiu corretamente */
 
-         TAB_CondRetErro
+         TAB_CondRetErro,
                /* Nao concluiu a solicitacao */
+			   
+		 TAB_CondRetForaTabuleiro,
+               /* Movimento para fora do tabuleiro */
+		  
+		 TAB_CondRetElementoNaoFaz,
+               /* Movimento invalido para o elemento selecionado */
+
+         TAB_CondRetSubstituiuOutroElemento
+               /* Movimento tirou um elemento original da posicao */
+			   
+			   
 
 } TAB_tpCondRet ;
 
@@ -104,10 +115,14 @@ typedef enum {
 *
 *     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
 *
+*     ExcluirValor  - Ponteiro para funcao que exclui valores das listas do elemento do
+*	   tabuleiro.
+*
 *		OBS: ESSA FUNCAO NAO VALIDA SE ESTA INSERINDO POR CIMA DE OUTRA PECA
 *		CABE AO JOGO VALIDAR ISSO OBTENDO A PECA NA POSICAO ANTES!
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
@@ -132,14 +147,26 @@ typedef enum {
 *
 *     finalY  - Coordenada vertical da posicao final da peca
 *
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
+*
+*     MoverPeca  - Ponteiro para funcao movimento do elemento do  tabuleiro.
+*
+*     ComparaElementos  - Ponteiro para funcao que compara dois elementos do
+*	   tabuleiro.
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
+*     TAB_CondRetElementoNaoFaz - Caso o elemento nao possa realizar o movimento.
+*     TAB_CondRetSubstituiuOutroElemento - Caso existisse uma peca na posicao alvo.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
 ***********************************************************************/
 
-   TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY);
+   TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY,
+	int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY), TAB_tppTabuleiro tabuleiro,
+	int(* ComparaElementos)(void* elem1, void* elem2));
    
 /***********************************************************************
 *
@@ -153,14 +180,17 @@ typedef enum {
 *
 *     inicialY  - Coordenada vertical da posicao  da peca
 *
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
 ***********************************************************************/
 
-   TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY);
+   TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY, TAB_tppTabuleiro tabuleiro);
 
 /***********************************************************************
 *
@@ -174,18 +204,20 @@ typedef enum {
 *
 *     inicialY  - Coordenada vertical da posicao da peca
 *
-*     nome  - Nome da peca na posicao, passado por referencia.
+*     pValor  - Ponteiro para elemento na posicao, passado por referencia.
 *
-*     cor  - Nome da peca na posicao, passado por referencia.
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
 ***********************************************************************/
 
-	TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, char* nome, char* cor);
+ TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, void** pValor,
+	TAB_tppTabuleiro tabuleiro);
 	
 /***********************************************************************
 *
@@ -201,14 +233,18 @@ typedef enum {
 *
 *     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
 *
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
 ***********************************************************************/
 
-	TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista);
+	TAB_tpCondRet TAB_ObterListaAmeacantes(int inicialX, char inicialY, LIS_tppLista* lista,
+	TAB_tppTabuleiro tabuleiro);
 	
 /***********************************************************************
 *
@@ -224,14 +260,19 @@ typedef enum {
 *
 *     lista  - Ponteirto para o cabecalho da lista (retornado por referencia).
 *
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
+*
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
+*     TAB_CondRetForaTabuleiro - Caso x e y estajam fora dos limites.
 *     TAB_CondRetErro - Caso contrário.
 * 
 *
 ***********************************************************************/
 
-	TAB_tpCondRet TAB_ObterListaAmeacados(int inicialX, char inicialY, LIS_tppLista* lista);
+	TAB_tpCondRet TAB_ObterListaAmeacados(int inicialX, char inicialY, LIS_tppLista* lista,
+	TAB_tppTabuleiro tabuleiro);
 
 /***********************************************************************
 *
@@ -240,6 +281,8 @@ typedef enum {
 *  $ED Descrição da função
 *     Libera a memoria do tabuleiro e todas as suas pecas.
 *
+*  $EP Parâmetros
+*     tabuleiro  - Ponteiro o tabuleiro que terá a peca inserida
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK - Se executou corretamente.
