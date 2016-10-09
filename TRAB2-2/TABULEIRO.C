@@ -23,7 +23,6 @@
 #include   <memory.h>
 #include   <malloc.h>
 #include   <assert.h>
-#include	<ctype.h>
 #include	"TABULEIRO.h"
 #include	"LISTA.h"
 
@@ -329,12 +328,16 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 ***********************************************************************/
 
    int converteColuna(char coluna){
-		
-		int lower = toLower(coluna);
-		return lower - 'a';
-	}/* Fim função: TAB  -Converte coordenada da coluna*/	
 	
-   
+		int dist;
+		if (coluna >= 'A'){
+			dist = (coluna - 'A');
+		}
+		else{
+			dist = coluna - 'a';
+		}
+		return dist;
+	}/* Fim função: TAB  -Converte coordenada da coluna*/		
 
 /********** Fim do módulo de implementação: TAB  Tabuleiro de jogo generico **********/
 
