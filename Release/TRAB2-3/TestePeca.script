@@ -1,0 +1,54 @@
+// Script:    TestePeca.script
+// Autor:     MCS e GBHA
+// Data:      10/out/2016
+// Propósito: Testar o módulo peça
+//
+
+== Inicializar valores
+
+=declararparm	inx0	int  0
+=declararparm	inx1	int  1
+=declararparm	inx2	int  2
+
+=declararparm   id0		string  "p"
+=declararparm	id1	 	string	"c" 
+=declararparm	id2     string  "u"	
+
+=declararparm   cor0	string	"b"
+=declararparm	cor1 	string	"p"
+
+=declararparm   OK      int  0
+=declararparm   Erro    int  1
+=declararparm   TimeDif int  2
+=declararparm   TimeIgual int 3
+
+== Criar a peça 0 "Peao"
+=criarpeca  inx0  id0  cor1  OK
+
+== Definir movimento para o peao
+=moverpeca  inx0  0 0 1 0  OK
+
+== Criar a peca 1 "Cavalo"
+=criarpeca  inx1  id1  cor0  OK
+
+== Definir movimento para o cavalo
+=moverpeca  inx1 0 0 0 1 OK
+
+== Criar a peca 2 "Unicornio"
+=criarpeca inx2	 id2 cor0 OK
+
+== Comparar peca 1 e 2 de times iguais
+=compararpeca inx1 inx2 TimeIgual
+
+== Comparar peca 0 e 1 de times diferentes
+=compararpeca inx0 inx1 TimeDif
+
+== Comparar peca 0 e 2 de times diferentes
+=compararpeca inx0 inx2 TimeDif
+
+== Liberar pecas 
+=liberarpeca inx0 OK
+=liberarpeca inx1 OK
+=liberarpeca inx2 OK
+
+// fim

@@ -1,0 +1,20 @@
+// Trabalho realizado por Gustavo Azevedo e Maria Carolina Santos
+
+// Modo de Uso do programa
+
+	O programa pode ser utilizado de forma simples, com dois cliques no arquivo: TRAB2-2.bat. 
+	O programa aceita scripts de teste para a estrutura do módulo descrita no arquivo TABULEIRO.H
+	e exibe seus resultados no arquivo TesteTabuleiro.txt. Caso queira gerar novos casos de teste,
+	edite o arquivo TesteTabuleiro.script seguindo a sintaxe abaixo para cada função externa do módulo.
+
+//Comandos do script do teste de TABULEIRO
+
+*     =criartabuleiro             string int CondRetEsp
+*     =inserirpeca                int string string CondRetEsp
+*     =moverpeca                  int string int string CondRetEsp
+*     =retirarpeca                int string  CondRetEsp
+*	  =obterpeca				  int string CondRetEsp
+*     =obterameacados             int string  CondRetEsp
+*     =obterameacantes            int string  CondretPonteiro
+*     =destruirtabuleiro         CondRetEsp
+

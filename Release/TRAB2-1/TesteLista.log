@@ -1,0 +1,48 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: TRAB2-1
+!!!      Script de teste:     TesteLista.script
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autor:     Arndt von Staa, Gustavo Azevedo e Maria Carolina Santos 
+!!!    0  Linha:     3  // Data última versão: 10/Out/2016 
+!!!    0  Linha:     4  // Data:      02/abr/2008 
+!!!    0  Linha:     5  // Propósito: Testar o módulo lista genérica duplamente encadeada 
+!!!    0  Linha:     6  // 
+    8  == Inicializar valores
+   32  == Criar a lista passando uma quantidade maior de caracteres que a permitida para a sua id
+   35  == Criar a lista 1
+   38  == Verificar obterIdLista da lista 1
+   41  == Verificar IrProximoLista relativo a lista vazia
+   44  == Verificar IrAnteriorLista relativo a lista vazia
+   47  == Verificar ObterValor relativo a lista vazia
+   50  == Verificar ExcluirElemento relativo a lista vazia
+   53  == Inserir elemento em lista vazia
+   57  == Excluir elemento em lista com um elemento
+   60  == Destroi lista vazia
+   63  == Criar lista 2 com 3 elementos
+   72  == Alterar valor do nó corrente de lista que não existe
+   75  == Alterar valor do nó corrente da lista 2
+   78  == Mudar elemento corrente para o meio
+   82  == Mudar elemento corrente para o primeiro
+   88  == Mudar elemento corrente para o último da lista
+   96  == Destruir lista que não existe
+   99  == Destruir lista 2
+  102  == Criar lista 3 com nenhum elemento
+  105  == Verificar AlterarElementoCorrente relativo a lista vazia
+  108  == Inserir primeiro elemento na lista 3
+  112  == Inserir segundo elemento na lista 3
+  116  == Inserir elemento na segunda posição na lista 3
+  122  ==Inserir elemento na última posição
+  129  == Destruir lista 3
+!!!    0  Linha:   134  // fim 
+
+!!! Número de linhas lidas:         134
+!!! Número de casos de teste:        26
+!!! Número comandos corretos:        68
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

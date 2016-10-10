@@ -1,0 +1,134 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa, Gustavo Azevedo e Maria Carolina Santos
+// Data última versão: 10/Out/2016
+// Data:      02/abr/2008
+// Propósito: Testar o módulo lista genérica duplamente encadeada
+//
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+=declararparm	lista3  int 3
+
+=declararparm	id0	string "prim"
+=declararparm   id1 string "seg"
+=declararparm	id2	string "terc"
+
+=declararparm   str0    string  "ABC"
+=declararparm   str1    string  "DEF"
+=declararparm   str2    string  "MNO"
+=declararparm   str3    string  "FGY"
+=declararparm   str4    string  "null"
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  2
+=declararparm   Erro	       int  3
+=declararparm   FimLista       int  4
+=declararparm 	InicioLista    int  5
+=declararparm   FaltouMemoria  int  6
+
+
+== Criar a lista passando uma quantidade maior de caracteres que a permitida para a sua id
+=criarLista lista0 "abcdef" Erro
+
+== Criar a lista 1
+=criarLista lista1 id0 OK
+
+== Verificar obterIdLista da lista 1
+=obterIdLista lista1 id0
+
+== Verificar IrProximoLista relativo a lista vazia 
+=irProx lista1 ListaVazia
+
+== Verificar IrAnteriorLista relativo a lista vazia 
+=irAnt lista1 ListaVazia
+
+== Verificar ObterValor relativo a lista vazia
+=obterNo lista1 "" ListaVazia 
+
+== Verificar ExcluirElemento relativo a lista vazia
+=excluirNoCorrente lista1 ListaVazia
+
+== Inserir elemento em lista vazia
+=inserirNo   lista1   str0   OK
+=obterNo lista1   str0   OK
+
+== Excluir elemento em lista com um elemento
+=excluirNoCorrente lista1 OK
+
+== Destroi lista vazia
+=destroiLista lista1 OK
+
+== Criar lista 2 com 3 elementos
+=criarLista lista2 id1  OK
+=inserirNo  lista2 str1  OK
+=obterNo    lista2 str1  OK
+=inserirNo  lista2 str2  OK
+=obterNo    lista2 str2  OK
+=inserirNo  lista2 str3  OK
+=obterNo    lista2 str3  OK
+
+== Alterar valor do nó corrente de lista que não existe
+=alterarNoCorrente lista3 str1 Erro
+
+== Alterar valor do nó corrente da lista 2
+=alterarNoCorrente lista2 str0 OK
+
+== Mudar elemento corrente para o meio 
+=irAnt lista2 OK
+=obterNo lista2 str2 OK
+
+== Mudar elemento corrente para o primeiro
+=irAnt lista2 OK
+=obterNo lista2 str1 OK
+=irAnt lista2 InicioLista
+=obterNo lista2 str1 OK
+
+== Mudar elemento corrente para o último da lista
+=irProx lista2 OK
+=obterNo lista2 str2 OK
+=irProx lista2 OK
+=obterNo lista2 str0 OK
+=irProx lista2 FimLista
+=obterNo lista2 str0 OK
+
+== Destruir lista que não existe
+=destroiLista lista3 Erro
+
+== Destruir lista 2
+=destroiLista lista2 OK
+
+== Criar lista 3 com nenhum elemento
+=criarLista lista3 id2 OK
+
+== Verificar AlterarElementoCorrente relativo a lista vazia 
+=alterarNoCorrente lista3 str0 ListaVazia
+
+== Inserir primeiro elemento na lista 3
+=inserirNo lista3 str0 OK
+=obterNo lista3 str0 OK
+
+== Inserir segundo elemento na lista 3
+=inserirNo lista3 str2 OK
+=obterNo lista3 str2 OK
+
+== Inserir elemento na segunda posição na lista 3
+=irAnt lista3 OK
+=obterNo lista3 str2 OK
+=inserirNo lista3 str1 OK
+=obterNo lista3 str1 OK
+
+==Inserir elemento na última posição
+=irProx lista3 OK
+=obterNo lista3 str2 OK
+=irProx lista3 FimLista
+=inserirNo lista3 str3 OK
+=obterNo lista3 str3 OK
+
+== Destruir lista 3
+=destroiLista lista3 OK
+
+
+
+// fim

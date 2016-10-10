@@ -1,0 +1,31 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: TRAB2-3
+!!!      Script de teste:     TestePeca.script
+
+!!!    0  Linha:     1  // Script:    TestePeca.script 
+!!!    0  Linha:     2  // Autor:     MCS e GBHA 
+!!!    0  Linha:     3  // Data:      10/out/2016 
+!!!    0  Linha:     4  // Propósito: Testar o módulo peça 
+!!!    0  Linha:     5  // 
+    7  == Inicializar valores
+   25  == Criar a peça 0 "Peao"
+   28  == Definir movimento para o peao
+   31  == Criar a peca 1 "Cavalo"
+   34  == Definir movimento para o cavalo
+   37  == Criar a peca 2 "Unicornio"
+   40  == Comparar peca 1 e 2 de times iguais
+   43  == Comparar peca 0 e 1 de times diferentes
+   46  == Comparar peca 0 e 2 de times diferentes
+   49  == Liberar pecas
+!!!    0  Linha:    54  // fim 
+
+!!! Número de linhas lidas:          54
+!!! Número de casos de teste:        10
+!!! Número comandos corretos:        23
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

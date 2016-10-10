@@ -1,9 +1,14 @@
-Data    Horas Trabalhadas    Tipo Tarefa		        Descrição da Tarefa Realizada
-13/09   2                    especificar módulos        Definir separação dos módulos (Tabuleiro, lista e peça).
-
-13/09   2                    codificar                  Desenvolvimento do módulo peca
-15/09   5                    codificar módulo   	   Criar branch de lista para lista ordenada com primeiras alterações.
-16/09   5                    codificar módulo       Continuação do desenvolvimento da lista ordenada com ajustes nos arquivos de infra (.bat)
-17/09   8                  	 codificar módulo       Continuação do desenvolvimento da lista ordenada: adequação do arquivo TESTEORDENALIS.c
-06/10   4                    testes                      Testes, correções e ajustes.
-06/10   1                    revisar código	        Revisões para entrega e finalzação de documentação.
+﻿Data    Horas Trabalhadas    Tipo Tarefa		        Descrição da Tarefa Realizada
+21/09   2                    especificar módulos        Definir separação dos módulos (Tabuleiro, lista e peça).
+25/09	4					estudar						Revisão do arcabouco com a Maria e Configuracao do ambiente dela.
+01/10   2                    projetar                	Criacoa de repositorio no gitHub e organizacao da carga de trabalho.
+01/10	4					codificar					Inicio desenvolvimento modulo peca
+02/10	4					codificar					Conclusao desenvolvimento modulo peca
+03/10	6					codificar					Inicio desenvolvimento modulo tabuleiro
+04/10	4					codificar					Continuacao desenvolvimento modulo tabuleiro
+05/10	4					codificar					Continuacao desenvolvimento modulo tabuleiro
+09/10	6					codificar					Continuacao desenvolvimento modulo tabuleiro
+10/10	4					codificar					Conclusao desenvolvimento modulo tabuleiro
+10/10   4                    testes                      Testes, correções e ajustes.
+10/10   1                    revisar código	        Revisões para entrega e finalzação de documentação.
+10/10	1 					revisar codigo			Release da versao.

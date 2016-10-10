@@ -1,0 +1,13 @@
+TestTab.c
+Tabuleiro.c
+Lista.c
+Peca.c
+Microsoft (R) Incremental Linker Version 9.00.30729.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/OUT:TesteTabuleiro.exe 
+/INCREMENTAL:NO 
+/MACHINE:IX86 
+TestTab.obj Tabuleiro.obj Lista.obj Peca.obj 
+..\Libs\ArcaboucoTeste.lib 
+
