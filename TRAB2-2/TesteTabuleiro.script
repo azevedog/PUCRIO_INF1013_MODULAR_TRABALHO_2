@@ -51,14 +51,14 @@
 == Inserir peça preta em local inexistente
 =inserirpeca 9 "m" cor1 ForaTabuleiro
 
-== Mover peça da posição A1 para B2
-=moverpeca lin0 col0 lin1 col1 OK
+== Realizar movimento inadequado com peça
+=moverpeca lin0 col0 lin1 col1 ElemNaoFaz
 
 == Mover peça da posição B2 para fora do tabuleiro
 =moverpeca lin1 col1 9 "i" ForaTabuleiro
 
-== Realizar movimento inadequado com peça
-=moverpeca lin1 col1 lin1 col2 ElemNaoFaz
+== Mover peça da posição A1 para B1
+=moverpeca lin1 col1 lin1 col2 OK
 
 == Substituir peça preta da posição C7 pela peça branca da posição B6
 =moverpeca lin5 col1 lin6 col2 SubstOutro
