@@ -98,17 +98,21 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 	
 	(*novoTabuleiro)->posicoes = (tpElemTabuleiro**)
 	malloc(sizeof(tpElemTabuleiro*)*numLinhas);
-	  
-	for(lin =0; lin <= numLinhas; lin++){
+	
+	for(lin =0; lin < numLinhas; lin++){
 		(*novoTabuleiro)->posicoes[lin] = 
 			 (tpElemTabuleiro*) malloc(sizeof(tpElemTabuleiro)*numColunas);
-		for(col = 0; col <= numColunas; col++){
+		for(col = 0; col < numColunas; col++){
 			(*novoTabuleiro)->posicoes[lin][col].pValor = NULL;
 			(*novoTabuleiro)->posicoes[lin][col].ameacantes = NULL;
 			(*novoTabuleiro)->posicoes[lin][col].ameacados = NULL;
-		}
-	}		
-		return TAB_CondRetOK;
+		} 	
+	}	
+	
+	(*novoTabuleiro)->linhas = numLinhas;
+	(*novoTabuleiro)->colunas = numColunas;
+	
+	return TAB_CondRetOK;
 	}/* Fim função: TAB  &Criar Tabuleiro */
 
 
@@ -127,11 +131,14 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		char * idAmeacados;
 		char * idAmeacantes;
 		int col = converteColuna(coluna);
+		printf("coluna %d - %s\nlinha %d\n", col, &coluna, linha);
 		
 		
-		if(!posicaoValida(linha, col, tabuleiro)){
+		if( !posicaoValida(linha, col, &tabuleiro) ){
+			printf("errei aqui");
 			return TAB_CondRetForaTabuleiro;
 		}
+		printf("qnt linhas %d - qnt colunas %d", tabuleiro->linhas, tabuleiro->colunas);
 		
 		elem = tabuleiro->posicoes[linha][col];
 		
@@ -154,7 +161,7 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		elem.pValor = peca;
 		elem.pValor = ameacantes;
 		elem.pValor = ameacados;
-		
+	
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Inserir peca no tabuleiro */
 
@@ -330,11 +337,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
    int converteColuna(char coluna){
 	
 		int dist;
-		if (coluna >= 'A'){
-			dist = (coluna - 'A');
+		if (coluna >= 'a'){
+			dist = (coluna - 'a');
 		}
 		else{
-			dist = coluna - 'a';
+			dist = coluna - 'A';
 		}
 		return dist;
 	}/* Fim função: TAB  -Converte coordenada da coluna*/		

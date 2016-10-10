@@ -84,8 +84,8 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 *
 *     Comandos disponíveis:
 *
-*     =criartabuleiro             int int CondRetEsp
-*     =inserirpeca                int int CondRetEsp
+*     =criartabuleiro             string int CondRetEsp
+*     =inserirpeca                int string string CondRetEsp
 *     =moverpeca                inxLista
 *     =retirarpeca                 inxLista  string  CondRetEsp
 *	  =obterpeca
@@ -100,7 +100,7 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
    
 	  int x;
 	  char y;
-
+	  
       int numLidos   = -1 ,
           CondRetEsp = -1,
 		  CondRet = -1;
@@ -114,12 +114,15 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
          if  ( strcmp( ComandoTeste , CRIAR_TAB_CMD) == 0 )
          {
 
-            numLidos = LER_LerParametros( "sii" , &y, &x,
+            numLidos = LER_LerParametros( "iii" , &y, &x,
                        &CondRetEsp ) ;
 
             if (numLidos != 3){
                return TST_CondRetParm ;
             } /* if */
+			
+			//py = (char*) malloc(sizeof(char));
+			//strcpy(py, &y);
 			
 			tab = *((TAB_tppTabuleiro*) malloc(sizeof(TAB_tppTabuleiro)));
 			
@@ -128,8 +131,8 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao criar tabuleiro.") ;
          } /* fim ativa: Testar Criar tabuleiro */
-
-       /* Testar Inserir peca */
+		 
+		  /* Testar Inserir peca */
         else if  ( strcmp( ComandoTeste , INSERIR_PECA_CMD) == 0 ){
 
 			char identificador = 'T';
@@ -154,113 +157,9 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
                "Erro ao inserir peca.") ;
         } /* fim ativa: Testar Inserir peca */
 
-      /* Testar Mover peca */
-        else if  ( strcmp( ComandoTeste , MOVER_PECA_CMD) == 0 ){
-
-			int finalX;
-			char finalY;
-			
-            numLidos = LER_LerParametros( "isisi" , &x, &y, &finalX, &finalY,
-                       &CondRetEsp) ;
-
-            if (numLidos != 5){
-               return TST_CondRetParm ;
-            } /* if */
-
-			CondRet = TAB_MoverPeca(x, y, finalX, finalY, Mover, tab,
-			Compara);
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao mover peca.") ;
-        } /* fim ativa: Testar Mover Peca */
-		
-		/* Testar Retirar peca */
-        else if  ( strcmp( ComandoTeste , RETIRAR_PECA_CMD) == 0 ){
-
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
-
-            if (numLidos != 3){
-               return TST_CondRetParm ;
-            } /* if */
-
-            
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao retirar peca.") ;
-        } /* fim ativa: Testar Retirar peca */
-		
-		/* Testar Obter peca */
-        else if  ( strcmp(ComandoTeste , OBTER_PECA_CMD) == 0 ){
-
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
-
-            if (numLidos != 3){
-               return TST_CondRetParm ;
-            } /* if */
-
-            
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao obter peca.") ;
-        } /* fim ativa: Testar Obeter peca */
-		
-		/* Testar Obter ameacados */
-        else if  ( strcmp( ComandoTeste , OBTER_CADOS_CMD) == 0 ){
-
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
-
-            if (numLidos != 3){
-               return TST_CondRetParm ;
-            } /* if */
-
-            
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao obter ameacados peca.") ;
-        } /* fim ativa: Testar Obeter ameacados. */
-		
-		/* Testar Obter ameacantes */
-        else if  ( strcmp( ComandoTeste , OBTER_CANTES_CMD) == 0 ){
-
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
-
-            if (numLidos != 3){
-               return TST_CondRetParm ;
-            } /* if */
-
-            
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao obter ameacantes.") ;
-        } /* fim ativa: Testar Obeter ameacados */
-		
-		
-		/* Testar Destruir tabuleiro */
-        else if  (strcmp( ComandoTeste , DESTRUIR_TABULEIRO_CMD) == 0 ){
-
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
-
-            if (numLidos != 3){
-               return TST_CondRetParm ;
-            } /* if */
-
-            
-
-            return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao destruir tabuleiro.") ;
-        } /* fim ativa: Testar Destruir tabuleiro. */
-		
-		
-
-      return TST_CondRetNaoConhec ;
-
-   } /* Fim função: TTAB &Testar Tabuleiro */
-
+     return TST_CondRetNaoConhec ;
+   }
+      
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
