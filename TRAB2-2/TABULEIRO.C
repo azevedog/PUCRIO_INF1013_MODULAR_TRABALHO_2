@@ -69,7 +69,7 @@
 
 /***** Protótipos das funções encapuladas no módulo *****/
 	
-	static TAB_tpCondRet posicaoValida(int x, int y, TAB_tppTabuleiro tabuleiro);
+	static TAB_tpCondRet posicaoInvalida(int x, int y, TAB_tppTabuleiro tabuleiro);
 	
 	static int converteColuna(char coluna);
 
@@ -131,14 +131,13 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		char * idAmeacados;
 		char * idAmeacantes;
 		int col = converteColuna(coluna);
-		printf("coluna %d - %s\nlinha %d\n", col, &coluna, linha);
 		
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		linha = linha -1;
 		
-		if( !posicaoValida(linha, col, tabuleiro) ){
-			printf("errei aqui\n");
+		if(posicaoInvalida(linha, col, tabuleiro) ){
 			return TAB_CondRetForaTabuleiro;
 		}
-		printf("qnt linhas %d - qnt colunas %d", tabuleiro->linhas, tabuleiro->colunas);
 		
 		elem = tabuleiro->posicoes[linha][col];
 		
@@ -179,7 +178,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		int iFinalY = converteColuna(finalY);
 		TAB_tpCondRet ret;
 		
-		if(!posicaoValida(finalX, iFinalY, tabuleiro)){
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		inicialX = inicialX -1;
+		finalX = finalX -1;
+		
+		if(posicaoInvalida(finalX, iFinalY, tabuleiro)){
 			return TAB_CondRetForaTabuleiro;
 		}
 		
@@ -211,8 +214,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
  TAB_tpCondRet TAB_RetirarPeca(int inicialX, char inicialY, TAB_tppTabuleiro tabuleiro){
  
 		int iInicialY = converteColuna(inicialY);
+		
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		inicialX = inicialX -1;
  
-		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+		if(posicaoInvalida(inicialX, iInicialY, tabuleiro)){
 			return TAB_CondRetForaTabuleiro;
 		}
 		
@@ -234,10 +240,13 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *  ****/
  TAB_tpCondRet TAB_ObterPeca(int inicialX, char inicialY, void** pValor,
 	TAB_tppTabuleiro tabuleiro){
-		
+
 		int iInicialY = converteColuna(inicialY);
+
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		inicialX = inicialX -1;
 		
-		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+		if(posicaoInvalida(inicialX, iInicialY, tabuleiro)){
 			return TAB_CondRetForaTabuleiro;
 		}
 		
@@ -255,8 +264,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 	TAB_tppTabuleiro tabuleiro){
 		
 		int iInicialY = converteColuna(inicialY);
+
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		inicialX = inicialX -1;
 		
-		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+		if(posicaoInvalida(inicialX, iInicialY, tabuleiro)){
 			return TAB_CondRetForaTabuleiro;
 		}
 		
@@ -274,8 +286,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 	TAB_tppTabuleiro tabuleiro){
 		
 		int iInicialY = converteColuna(inicialY);
+
+		/* Ajuste das coordenadas 1 based para a matriz interna 0 based*/
+		inicialX = inicialX -1;
 		
-		if(!posicaoValida(inicialX, iInicialY, tabuleiro)){
+		if(posicaoInvalida(inicialX, iInicialY, tabuleiro)){
 			return TAB_CondRetForaTabuleiro;
 		}
 		
@@ -296,8 +311,8 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		int numColunas = tabuleiro->colunas;
 		
 		
-		for(lin =0; lin <= numLinhas; lin++){
-			for(col = 0; col <= numColunas; col++){
+		for(lin =0; lin < numLinhas; lin++){
+			for(col = 0; col < numColunas; col++){
 				free(tabuleiro->posicoes[lin][col].pValor);
 				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacantes);
 				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
@@ -318,10 +333,12 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 *
 ***********************************************************************/
 
-   int posicaoValida(int x, int y, TAB_tppTabuleiro tabuleiro){
-
-		if((x < 0) || (x > tabuleiro->linhas) ||
-			(y < 0) ||(y > tabuleiro->colunas)){
+   int posicaoInvalida(int x, int y, TAB_tppTabuleiro tabuleiro){
+   
+		
+		if((x < 0) || (x >= tabuleiro->linhas) ||
+			(y < 0) ||(y >= tabuleiro->colunas)){
+			printf("\n\n[inv]x:%d\ny:%d", x, y);
 			return TAB_CondRetErro;
 		}
 		
@@ -337,7 +354,7 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
    int converteColuna(char coluna){
 	
 		int dist;
-		if (coluna >= 'a'){
+		if ((coluna >= 'a') && (coluna <= 'z')){
 			dist = (coluna - 'a');
 		}
 		else{

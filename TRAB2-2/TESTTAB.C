@@ -51,6 +51,9 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 #define NAO_VAZIO 1
 
 #define DIM_VALOR     100
+  
+TAB_tppTabuleiro tab = NULL;
+PEC_tppPeca pPeca = NULL;
 
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -104,8 +107,6 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
       int numLidos   = -1 ,
           CondRetEsp = -1,
 		  CondRet = -1;
-	  TAB_tppTabuleiro tab = NULL;
-	  PEC_tppPeca pPeca = NULL;
 
       //char   StringDado[  DIM_VALOR ] ;
       //char * pDado ;
@@ -113,8 +114,9 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
        /* Testar Criar tabuleiro */
          if  ( strcmp( ComandoTeste , CRIAR_TAB_CMD) == 0 )
          {
+			int numCol;
 
-            numLidos = LER_LerParametros( "iii" , &y, &x,
+            numLidos = LER_LerParametros( "iii" , &numCol, &x,
                        &CondRetEsp ) ;
 
             if (numLidos != 3){
@@ -123,7 +125,7 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 			
 			tab = *((TAB_tppTabuleiro*) malloc(sizeof(TAB_tppTabuleiro)));
 			
-			CondRet = TAB_CriarTabuleiro(y, x, &tab);
+			CondRet = TAB_CriarTabuleiro(numCol, x, &tab);
 			
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao criar tabuleiro.") ;
@@ -138,16 +140,18 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
             numLidos = LER_LerParametros( "issi" , &x, &y, &corTime,
                        &CondRetEsp ) ;
 
+					   
             if (numLidos != 4){
                return TST_CondRetParm ;
             } /* if */
+			
 			
 			pPeca  = *((PEC_tppPeca*) malloc(sizeof(PEC_tppPeca)));
 			
 			if(PEC_CriarPeca(&pPeca, &identificador, &corTime, Mover)){
 				CondRet = TAB_CondRetErro;
 			}
-
+			
             CondRet = TAB_InserirPeca(x, y, pPeca, tab, ExcluirValor);
 
             return TST_CompararInt(CondRetEsp, CondRet,
