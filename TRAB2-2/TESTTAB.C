@@ -172,7 +172,6 @@ PEC_tppPeca pPeca = NULL;
                return TST_CondRetParm ;
             } /* if */
 
-			printf("\n\n[test]x:%d\ny:%c", fX, finalY);
 			CondRet = TAB_MoverPeca(x, y, fX, finalY, Mover, tab,
 			Compara);
 
