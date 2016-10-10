@@ -204,8 +204,18 @@ PEC_tppPeca pPeca = NULL;
             if (numLidos != 3){
                return TST_CondRetParm ;
             } /* if */
-
-            
+			
+			pPeca  = *((PEC_tppPeca*) malloc(sizeof(PEC_tppPeca)));
+			CondRet = TAB_ObterPeca(x, y, &pPeca, tab); 
+			
+            if(CondRet == TAB_CondRetOK){
+				if(pPeca == NULL){
+					CondRet = TAB_CondRetErro;
+				}
+				else{
+					CondRet = TAB_CondRetOK;
+				}
+			}
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao obter peca.") ;

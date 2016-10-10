@@ -163,7 +163,7 @@ typedef enum {
 ***********************************************************************/
 
    TAB_tpCondRet TAB_MoverPeca(int inicialX, char inicialY, int finalX, char finalY,
-	int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY), TAB_tppTabuleiro tabuleiro,
+	int ( * MoverPec ) ( int inicialX, int inicialY, int finalX, int finalY), TAB_tppTabuleiro tabuleiro,
 	int(* ComparaElementos)(void* elem1, void* elem2));
    
 /***********************************************************************

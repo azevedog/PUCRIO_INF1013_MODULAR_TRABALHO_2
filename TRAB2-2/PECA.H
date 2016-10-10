@@ -28,9 +28,7 @@
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referência para uma peca */
-
 typedef struct PEC_tagPeca* PEC_tppPeca ;
-
 
 /***********************************************************************
 *
