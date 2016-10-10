@@ -60,20 +60,7 @@
 == Mover peça da posição A1 para B1
 =moverpeca lin1 col1 lin1 col2 OK
 
-== Substituir peça preta da posição C7 pela peça branca da posição B6
-=moverpeca lin5 col1 lin6 col2 SubstOutro
 
-== Retirar peça da posição C7
-=retirarpeca lin5 col1 OK
-
-== Testar remoção de peça que está fora do tabuleiro
-=retirarpeca 9 "m" ForaTabuleiro
-
-== Testar obter peça para peça fora do tabuleiro
-=obterpeca 9 "m" ForaTabuleiro
-
-== Obter peça da posição D8
-=obterpeca lin7 col3 OK
 
 
 // fim
