@@ -286,9 +286,8 @@ LIS_tppLista pLista = NULL;
 
 			CondRet = TAB_DestruirTabuleiro(tab);
 			
-			printf("voltei pro teste\n");
             return TST_CompararInt(CondRetEsp, CondRet,
-               "Erro ao destruir tabuleiro.") ;
+			"Erro ao destruir tabuleiro.") ;
         } /* fim ativa: Testar Destruir tabuleiro. */
 		
       return TST_CondRetNaoConhec ;

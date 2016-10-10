@@ -346,15 +346,11 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 				if( tabuleiro->posicoes[lin][col].ameacados != NULL){
 					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
 				}
-				printf("posicao %dx%d\n", lin,col);
 			}
 			
 			free(tabuleiro->posicoes[lin]);
-			printf("liberei linha!!!\n`"); 
 
 		}	
-		free(tabuleiro->posicoes);
-		printf("me libertei dessa bagaça\n");
 		return TAB_CondRetOK;
 	}/* Fim função: TAB &Destriuir tabuleiro */
 	
