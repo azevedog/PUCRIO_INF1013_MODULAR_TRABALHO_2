@@ -66,8 +66,10 @@ typedef enum {
 		 TAB_CondRetElementoNaoFaz,
                /* Movimento invalido para o elemento selecionado */
 
-         TAB_CondRetSubstituiuOutroElemento
+         TAB_CondRetSubstituiuOutroElemento,
                /* Movimento tirou um elemento original da posicao */
+			   
+		 TAB_CondRetElementoMesmoTime
 			   
 } TAB_tpCondRet ;
 

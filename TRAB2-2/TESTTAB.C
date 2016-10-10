@@ -272,7 +272,7 @@ LIS_tppLista pLista = NULL;
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao obter ameacantes.") ;
-        } /* fim ativa: Testar Obeter ameacados */
+        } /* fim ativa: Testar Obter ameacados */
 		
 		
 		/* Testar Destruir tabuleiro */
@@ -285,13 +285,12 @@ LIS_tppLista pLista = NULL;
             } /* if */
 
 			CondRet = TAB_DestruirTabuleiro(tab);
-
+			
+			printf("voltei pro teste\n");
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao destruir tabuleiro.") ;
         } /* fim ativa: Testar Destruir tabuleiro. */
 		
-		
-
       return TST_CondRetNaoConhec ;
 
    } /* Fim função: TTAB &Testar Tabuleiro */

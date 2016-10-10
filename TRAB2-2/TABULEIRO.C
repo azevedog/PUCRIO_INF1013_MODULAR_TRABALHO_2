@@ -138,6 +138,10 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 			return TAB_CondRetForaTabuleiro;
 		}
 		
+		if((tabuleiro->posicoes[linha][col].pValor) != NULL){
+			return TAB_CondRetErro;
+		}
+		
 		idAmeacados = ( char * ) malloc( sizeof(char)*LIS_TAM_ID); 
 		strcpy(idAmeacados, &prefixAmeacado);
 		
@@ -194,7 +198,7 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		if((tabuleiro->posicoes[finalX][iFinalY].pValor) != NULL){
 			if(ComparaElementos(tabuleiro->posicoes[inicialX][iInicialY].pValor,
 				tabuleiro->posicoes[finalX][iFinalY].pValor)){
-				ret = TAB_CondRetOK;
+				return TAB_CondRetElementoMesmoTime;
 			}
 			else{
 				ret = TAB_CondRetSubstituiuOutroElemento;
@@ -327,14 +331,13 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		int numLinhas = tabuleiro->linhas;
 		int numColunas = tabuleiro->colunas;
 		
-		
 		for(lin = 0; lin < numLinhas; lin++){
+			
 			for(col = 0; col < numColunas; col++){
  
 				if( tabuleiro->posicoes[lin][col].pValor != NULL){
 					free(tabuleiro->posicoes[lin][col].pValor);
 				}
-				
 				
 				if( tabuleiro->posicoes[lin][col].ameacantes != NULL ){
 					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacantes);
@@ -343,12 +346,15 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 				if( tabuleiro->posicoes[lin][col].ameacados != NULL){
 					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
 				}
-				
-				//free(&(tabuleiro->posicoes[lin][col]));
-				printf("posicao %d x %d \n", lin, col);
-				
+				printf("posicao %dx%d\n", lin,col);
 			}
-		}		
+			
+			free(tabuleiro->posicoes[lin]);
+			printf("liberei linha!!!\n`"); 
+
+		}	
+		free(tabuleiro->posicoes);
+		printf("me libertei dessa bagaça\n");
 		return TAB_CondRetOK;
 	}/* Fim função: TAB &Destriuir tabuleiro */
 	

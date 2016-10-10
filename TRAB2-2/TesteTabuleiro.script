@@ -31,12 +31,17 @@
 =declararparm   ForaTabuleiro  int  2
 =declararparm   ElemNaoFaz	   int  3
 =declararparm   SubstOutro	   int  4
+=declararparm   MesmoTime	   int  5
 
 == Criar tabuleiro de 8x8
 =criartabuleiro lin7 lin7 OK
 
 == Inserir peça branca no tabuleiro na posição B6
 =inserirpeca lin5 col1 cor0 OK
+=obterpeca lin5 col1 OK
+
+== Testar inserir peça em posição B6 ocupada do tabuleiro 
+=inserirpeca lin5 col1 cor1 Erro
 =obterpeca lin5 col1 OK
 
 == Inserir peça preta na posição C6
@@ -68,11 +73,21 @@
 == Mover peça da posição A1 para C1
 =moverpeca lin0 col0 lin0 col2 OK
 =obterpeca lin0 col2 OK
+=obterpeca lin0 col0 Erro
 
 == Substituir peça preta da posição C6 pela peça branca da posição B6
 =moverpeca lin5 col1 lin5 col2 SubstOutro
 =obterpeca lin5 col2 OK
 =obterpeca lin5 col1 Erro
+
+== Inserir peça branca em E6
+=inserirpeca lin5 col4 cor0 OK
+=obterpeca lin5 col4 OK
+
+== Testar mudar peça para casa com peça da mesma cor (de C6 para E6)
+=moverpeca lin5 col2 lin5 col4 MesmoTime
+=obterpeca lin5 col4 OK
+=obterpeca lin5 col2 OK
 
 == Testar obter peça para peça fora do tabuleiro
 =obterpeca 9 "m" ForaTabuleiro
@@ -93,12 +108,20 @@
 == Testar obter ameaçados para posição fora do tabuleiro
 =obterameacados 9 "m" ForaTabuleiro
 
+== Testar obter ameaçados para posição vazia
+=obterameacados lin7 col7 Erro
+
 == Obter lista de ameaçantes para a posição D8
 =obterameacantes lin7 col3 OK
 
 == Testar obter ameaçantes para posição fora do tabuleiro
 =obterameacantes 9 "m" ForaTabuleiro
 
-== Destruir tabuleiro
+== Testar obter ameaçantes para posição vazia
+=obterameacantes lin7 col7 Erro
+
+== Destruir tabuleiro 8x8 
 =destruirtabuleiro OK
+
+
 // fim
