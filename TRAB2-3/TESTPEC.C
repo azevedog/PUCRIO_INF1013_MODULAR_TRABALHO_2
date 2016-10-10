@@ -30,7 +30,6 @@
 static const char CRIAR_PECA_CMD        [ ] = "=criarpeca"    ;
 static const char LIBERAR_PECA_CMD      [ ] = "=liberarpeca"  ;
 static const char MOVER_PECA_CMD      	[ ] = "=moverpeca"    ;
-static const char COMPARAR_PECA_CMD		[ ] = "=compararpeca" ;
 
 
 #define TRUE  1
@@ -62,9 +61,8 @@ PEC_tppPeca vtPecas[ DIM_VT_PECA];
 *     Comandos disponíveis:
 *
 *     =criarpeca                 inxPec string string CondRetEsp
-*     =liberarpeca               inxPec CondRetEsp
-*     =moverpeca                 inxPec int int int int CondRetEsp
-*	  =comparapeca				 inxPec inxPec CondRetEsp
+*     =liberarpeca               inxLista CondRetEsp
+*     =moverpeca               inxLista int int int int CondRetEsp
 *
 ***********************************************************************/
 
@@ -99,6 +97,7 @@ PEC_tppPeca vtPecas[ DIM_VT_PECA];
 			pTipoPeca = (char*) malloc(sizeof(char));
 			pCorPeca = (char*) malloc(sizeof(char));
 			
+
             CondRet =
                  PEC_CriarPeca(&(vtPecas[inxPeca]), pTipoPeca, pCorPeca, Mover) ;
 				 
@@ -149,24 +148,6 @@ PEC_tppPeca vtPecas[ DIM_VT_PECA];
             return TST_CompararInt( CondRetEsp ,CondRet ,
                "Erro ao mover a peca.") ;
         } /* fim ativa: Testar Mover Peca */
-		
-		else if (strcmp( ComandoTeste, COMPARAR_PECA_CMD) == 0){
-			
-			int inxPecaCompara;
-			numLidos = LER_LerParametros("iii", &inxPeca, &inxPecaCompara, &CondRetEsp);
-			
-			if ( ( numLidos != 3 )
-				|| ( ! ValidarInxPeca(inxPeca) )
-				|| ( ! ValidarInxPeca(inxPecaCompara) ) ) {
-					return TST_CondRetParm;
-				}
-			
-			CondRet = PEC_ComparaPeca(vtPecas[inxPeca], vtPecas[inxPecaCompara]) ;
-
-            return TST_CompararInt( CondRetEsp ,CondRet ,
-               "Erro ao comparar a peca.") ;
-			
-		} /* fim ativa: Testar Compara Peca */
 
       return TST_CondRetNaoConhec ;
 	}/* Fim função: TPEC &Testar Pecas */
