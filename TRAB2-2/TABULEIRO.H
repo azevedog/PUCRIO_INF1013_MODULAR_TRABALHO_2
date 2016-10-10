@@ -15,7 +15,7 @@
 *     Versão  Autor    Data     Observações
 *	   3       gbha  4/out/2016 Conclusao desenvolvimento
 *	   2       gbha  3/out/2016 Continuacao desenvolvimento
-*     1       mcs   1/out/2016 Início desenvolvimento
+*      1       mcs   1/out/2016 Início desenvolvimento
 *
 *  $ED Descrição do módulo
 *   Implementa um tabuleiro generico para jogos organizado

@@ -246,6 +246,9 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		tabuleiro->posicoes[inicialX][iInicialY].pValor = NULL;
 		LIS_DestruirLista(tabuleiro->posicoes[inicialX][iInicialY].ameacantes);
 		LIS_DestruirLista(tabuleiro->posicoes[inicialX][iInicialY].ameacados);
+		tabuleiro->posicoes[inicialX][iInicialY].ameacados = NULL;
+		tabuleiro->posicoes[inicialX][iInicialY].ameacantes = NULL;
+		
 		
 		return TAB_CondRetOK;
 	}/* Fim função: TAB  &Retirar peca do tabuleiro */
@@ -346,8 +349,7 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 				if( tabuleiro->posicoes[lin][col].ameacados != NULL){
 					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
 				}
-			}
-			
+			}	
 			free(tabuleiro->posicoes[lin]);
 
 		}	

@@ -98,8 +98,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       char   StringDado[  DIM_VALOR ] ;
       char * pDado ;
 
-      int i ;
-
       StringDado[ 0 ] = 0 ;
 
 
