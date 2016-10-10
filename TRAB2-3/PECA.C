@@ -73,7 +73,8 @@ int ( * MoverPeca ) ( int inicialX, int inicialY, int finalX, int finalY)) {
 	LimparPeca((*ppPeca));
 	
 	(*ppPeca)->identificadorTipo = identificador;
-	(*ppPeca)->corTime = corTime;
+	(*ppPeca)->corTime = "branco";
+	printf("salvei peca de cor: %s \n",(*ppPeca)->corTime);
 	(*ppPeca)->MoverPeca = MoverPeca;
 	
 	return PEC_CondRetOK;
@@ -118,13 +119,16 @@ PEC_tpCondRet PEC_LiberarPeca(PEC_tppPeca pPeca){
 *  Função: PEC  &ComparaPeca
 *  ****/
 PEC_tpCondRet PEC_ComparaPeca(void* elem1, void* elem2){
+	
 	PEC_tppPeca pPeca1 = (PEC_tppPeca) elem1;
 	PEC_tppPeca pPeca2 = (PEC_tppPeca) elem2;
 	
-	if(pPeca1->corTime == pPeca2->corTime){
+	printf("Cor peca1 %s\n", pPeca1->corTime);
+	printf("cor peca2 %s\n", pPeca2->corTime);
+	if( strcmp(pPeca1->corTime, pPeca2->corTime) == 0){
 		return PEC_CondRetMesmoTime;
 	}
-	return PEC_CondRetMesmoTime;
+	return PEC_CondRetTimeDiferente;
 }
 
 
