@@ -69,6 +69,10 @@
 == Testar obter peça para peça fora do tabuleiro
 =obterpeca 9 "m" ForaTabuleiro
 
+== Retirar peça da posição C7
+=retirarpeca lin5 col2 OK
 
+== Testar remoção de peça que está fora do tabuleiro
+=retirarpeca 9 "m" ForaTabuleiro
 
 // fim
