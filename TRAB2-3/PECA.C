@@ -121,10 +121,10 @@ PEC_tpCondRet PEC_ComparaPeca(void* elem1, void* elem2){
 	PEC_tppPeca pPeca1 = (PEC_tppPeca) elem1;
 	PEC_tppPeca pPeca2 = (PEC_tppPeca) elem2;
 	
-	if(pPeca1->corTime == pPeca2->corTime){
+	if(*(pPeca1->corTime) == *(pPeca2->corTime)){	
 		return PEC_CondRetMesmoTime;
 	}
-	return PEC_CondRetMesmoTime;
+	return PEC_CondRetTimeDiferente;
 }
 
 
