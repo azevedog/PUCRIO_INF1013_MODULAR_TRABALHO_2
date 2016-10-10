@@ -134,8 +134,8 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		printf("coluna %d - %s\nlinha %d\n", col, &coluna, linha);
 		
 		
-		if( !posicaoValida(linha, col, &tabuleiro) ){
-			printf("errei aqui");
+		if( !posicaoValida(linha, col, tabuleiro) ){
+			printf("errei aqui\n");
 			return TAB_CondRetForaTabuleiro;
 		}
 		printf("qnt linhas %d - qnt colunas %d", tabuleiro->linhas, tabuleiro->colunas);

@@ -86,12 +86,12 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
 *
 *     =criartabuleiro             string int CondRetEsp
 *     =inserirpeca                int string string CondRetEsp
-*     =moverpeca                inxLista
-*     =retirarpeca                 inxLista  string  CondRetEsp
-*	  =obterpeca
-*     =obterameacados                  inxLista  string  CondRetEsp
-*     =obterameacantes               inxLista  string  CondretPonteiro
-*     =destruirltabuleiro                  inxLista  CondRetEsp
+*     =moverpeca                  int string int string CondRetEsp
+*     =retirarpeca                int string  CondRetEsp
+*	  =obterpeca				  int string CondRetEsp
+*     =obterameacados             int string  CondRetEsp
+*     =obterameacantes            int  string  CondretPonteiro
+*     =destruirtabuleiro         CondRetEsp
 *
 ***********************************************************************/
 
@@ -120,9 +120,6 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
             if (numLidos != 3){
                return TST_CondRetParm ;
             } /* if */
-			
-			//py = (char*) malloc(sizeof(char));
-			//strcpy(py, &y);
 			
 			tab = *((TAB_tppTabuleiro*) malloc(sizeof(TAB_tppTabuleiro)));
 			
@@ -157,8 +154,112 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
                "Erro ao inserir peca.") ;
         } /* fim ativa: Testar Inserir peca */
 
-     return TST_CondRetNaoConhec ;
-   }
+/* Testar Mover peca */
+        else if  ( strcmp( ComandoTeste , MOVER_PECA_CMD) == 0 ){
+
+			int finalX;
+			char finalY;
+			
+            numLidos = LER_LerParametros( "isisi" , &x, &y, &finalX, &finalY,
+                       &CondRetEsp) ;
+
+            if (numLidos != 5){
+               return TST_CondRetParm ;
+            } /* if */
+
+			CondRet = TAB_MoverPeca(x, y, finalX, finalY, Mover, tab,
+			Compara);
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao mover peca.") ;
+        } /* fim ativa: Testar Mover Peca */
+		
+		/* Testar Retirar peca */
+        else if  ( strcmp( ComandoTeste , RETIRAR_PECA_CMD) == 0 ){
+
+            numLidos = LER_LerParametros( "isi" , 
+                       &CondRetEsp ) ;
+
+            if (numLidos != 3){
+               return TST_CondRetParm ;
+            } /* if */
+
+            
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao retirar peca.") ;
+        } /* fim ativa: Testar Retirar peca */
+		
+		/* Testar Obter peca */
+        else if  ( strcmp(ComandoTeste , OBTER_PECA_CMD) == 0 ){
+
+            numLidos = LER_LerParametros( "isi" , &x, &y,
+                       &CondRetEsp ) ;
+
+            if (numLidos != 3){
+               return TST_CondRetParm ;
+            } /* if */
+
+            
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao obter peca.") ;
+        } /* fim ativa: Testar Obeter peca */
+		
+		/* Testar Obter ameacados */
+        else if  ( strcmp( ComandoTeste , OBTER_CADOS_CMD) == 0 ){
+
+            numLidos = LER_LerParametros( "isi" , &x, &y,
+                       &CondRetEsp ) ;
+
+            if (numLidos != 3){
+               return TST_CondRetParm ;
+            } /* if */
+
+            
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao obter ameacados peca.") ;
+        } /* fim ativa: Testar Obeter ameacados. */
+		
+		/* Testar Obter ameacantes */
+        else if  ( strcmp( ComandoTeste , OBTER_CANTES_CMD) == 0 ){
+
+            numLidos = LER_LerParametros( "isi" , &x, &y,
+                       &CondRetEsp ) ;
+
+            if (numLidos != 3){
+               return TST_CondRetParm ;
+            } /* if */
+
+            
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao obter ameacantes.") ;
+        } /* fim ativa: Testar Obeter ameacados */
+		
+		
+		/* Testar Destruir tabuleiro */
+        else if  (strcmp( ComandoTeste , DESTRUIR_TABULEIRO_CMD) == 0 ){
+
+            numLidos = LER_LerParametros( "iii" ,
+                       &CondRetEsp ) ;
+
+            if (numLidos != 3){
+               return TST_CondRetParm ;
+            } /* if */
+
+            
+
+            return TST_CompararInt(CondRetEsp, CondRet,
+               "Erro ao destruir tabuleiro.") ;
+        } /* fim ativa: Testar Destruir tabuleiro. */
+		
+		
+
+      return TST_CondRetNaoConhec ;
+
+   } /* Fim função: TTAB &Testar Tabuleiro */
       
 
 /*****  Código das funções encapsuladas no módulo  *****/
