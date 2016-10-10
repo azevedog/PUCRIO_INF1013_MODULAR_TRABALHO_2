@@ -103,6 +103,7 @@ PEC_tppPeca pPeca = NULL;
    
 	  int x;
 	  char y;
+	  int fX = -1;
 	  
       int numLidos   = -1 ,
           CondRetEsp = -1,
@@ -161,17 +162,18 @@ PEC_tppPeca pPeca = NULL;
 /* Testar Mover peca */
         else if  ( strcmp( ComandoTeste , MOVER_PECA_CMD) == 0 ){
 
-			int finalX;
+			
 			char finalY;
 			
-            numLidos = LER_LerParametros( "isisi" , &x, &y, &finalX, &finalY,
+            numLidos = LER_LerParametros( "isisi" , &x, &y, &fX, &finalY,
                        &CondRetEsp) ;
 
             if (numLidos != 5){
                return TST_CondRetParm ;
             } /* if */
 
-			CondRet = TAB_MoverPeca(x, y, finalX, finalY, Mover, tab,
+			printf("\n\n[test]x:%d\ny:%c", fX, finalY);
+			CondRet = TAB_MoverPeca(x, y, fX, finalY, Mover, tab,
 			Compara);
 
             return TST_CompararInt(CondRetEsp, CondRet,

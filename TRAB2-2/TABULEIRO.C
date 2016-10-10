@@ -334,11 +334,8 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 ***********************************************************************/
 
    int posicaoInvalida(int x, int y, TAB_tppTabuleiro tabuleiro){
-   
-		
 		if((x < 0) || (x >= tabuleiro->linhas) ||
 			(y < 0) ||(y >= tabuleiro->colunas)){
-			printf("\n\n[inv]x:%d\ny:%d", x, y);
 			return TAB_CondRetErro;
 		}
 		

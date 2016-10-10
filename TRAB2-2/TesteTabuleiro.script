@@ -1,7 +1,7 @@
-// Script:    TesteLista.script
-// Autor:     Arndt von Staa
-// Data:      02/abr/2008
-// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
+// Script:    TesteTabuleiro.script
+// Autor:     MCS e GBHA
+// Data:      02/out/2016
+// Propósito: Testar o módulo tabuleiro
 //
 
 == Inicializar valores
@@ -74,5 +74,6 @@
 
 == Obter peça da posição D8
 =obterpeca lin7 col3 OK
+
 
 // fim
