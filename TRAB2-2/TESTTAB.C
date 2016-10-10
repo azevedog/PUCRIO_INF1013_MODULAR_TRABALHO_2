@@ -40,7 +40,7 @@ static const char RETIRAR_PECA_CMD         [ ] = "=retirarpeca"     ;
 static const char OBTER_PECA_CMD         [ ] = "=obterpeca"     ;
 static const char OBTER_CADOS_CMD         [ ] = "=obterameacados"     ;
 static const char OBTER_CANTES_CMD         [ ] = "=obterameacantes"     ;
-static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
+static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirtabuleiro"  ;
 
 
 
@@ -54,6 +54,7 @@ static const char DESTRUIR_TABULEIRO_CMD      [ ] = "=destruirltabuleiro"  ;
   
 TAB_tppTabuleiro tab = NULL;
 PEC_tppPeca pPeca = NULL;
+LIS_tppLista pLista = NULL;
 
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -93,7 +94,7 @@ PEC_tppPeca pPeca = NULL;
 *     =retirarpeca                int string  CondRetEsp
 *	  =obterpeca				  int string CondRetEsp
 *     =obterameacados             int string  CondRetEsp
-*     =obterameacantes            int  string  CondretPonteiro
+*     =obterameacantes            int string  CondretPonteiro
 *     =destruirtabuleiro         CondRetEsp
 *
 ***********************************************************************/
@@ -182,14 +183,14 @@ PEC_tppPeca pPeca = NULL;
 		/* Testar Retirar peca */
         else if  ( strcmp( ComandoTeste , RETIRAR_PECA_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "isi" , 
+            numLidos = LER_LerParametros( "isi" , &x, &y,
                        &CondRetEsp ) ;
 
             if (numLidos != 3){
                return TST_CondRetParm ;
             } /* if */
 
-            
+			CondRet = TAB_RetirarPeca(x , y, tab);
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao retirar peca.") ;
@@ -231,7 +232,17 @@ PEC_tppPeca pPeca = NULL;
                return TST_CondRetParm ;
             } /* if */
 
-            
+			pLista = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
+			CondRet = TAB_ObterListaAmeacados(x, y, &pLista, tab);
+			
+			if( CondRet == TAB_CondRetOK){
+				if(pLista == NULL){
+					CondRet = TAB_CondRetErro;
+				}
+				else{
+					CondRet = TAB_CondRetOK;
+				}
+			}
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao obter ameacados peca.") ;
@@ -247,7 +258,17 @@ PEC_tppPeca pPeca = NULL;
                return TST_CondRetParm ;
             } /* if */
 
-            
+            pLista = *((LIS_tppLista*) malloc(sizeof(LIS_tppLista)));
+			CondRet = TAB_ObterListaAmeacantes(x, y, &pLista, tab);
+			
+			if( CondRet == TAB_CondRetOK){
+				if(pLista == NULL){
+					CondRet = TAB_CondRetErro;
+				}
+				else{
+					CondRet = TAB_CondRetOK;
+				}
+			}
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao obter ameacantes.") ;
@@ -257,14 +278,13 @@ PEC_tppPeca pPeca = NULL;
 		/* Testar Destruir tabuleiro */
         else if  (strcmp( ComandoTeste , DESTRUIR_TABULEIRO_CMD) == 0 ){
 
-            numLidos = LER_LerParametros( "iii" ,
-                       &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "i" , &CondRetEsp ) ;
 
-            if (numLidos != 3){
+            if (numLidos != 1){
                return TST_CondRetParm ;
             } /* if */
 
-            
+			CondRet = TAB_DestruirTabuleiro(tab);
 
             return TST_CompararInt(CondRetEsp, CondRet,
                "Erro ao destruir tabuleiro.") ;

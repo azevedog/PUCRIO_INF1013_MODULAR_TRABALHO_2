@@ -322,12 +322,26 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 		int numColunas = tabuleiro->colunas;
 		
 		
-		for(lin =0; lin < numLinhas; lin++){
+		for(lin = 0; lin < numLinhas; lin++){
 			for(col = 0; col < numColunas; col++){
-				free(tabuleiro->posicoes[lin][col].pValor);
-				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacantes);
-				LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
+ 
+				if( tabuleiro->posicoes[lin][col].pValor != NULL){
+					free(tabuleiro->posicoes[lin][col].pValor);
+				}
+				
+				
+				if( tabuleiro->posicoes[lin][col].ameacantes != NULL ){
+					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacantes);
+				}
+				
+				if( tabuleiro->posicoes[lin][col].ameacados != NULL){
+					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
+				}
+				printf("posicao %d x %d \n", lin, col);
+				
 				free(&(tabuleiro->posicoes[lin][col]));
+				
+				
 			}
 		}		
 		return TAB_CondRetOK;
