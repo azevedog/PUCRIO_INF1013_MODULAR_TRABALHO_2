@@ -14,7 +14,7 @@
 *     Versão  Autor    Data     Observações
 *	   3       gbha  4/out/2016 Conclusao desenvolvimento
 *	   2       gbha  3/out/2016 Continuacao desenvolvimento
-*     1       mcs   1/out/2016 início desenvolvimento
+*      1       mcs   1/out/2016 início desenvolvimento
 *
 ***************************************************************************/
 
@@ -208,7 +208,13 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 			return TAB_CondRetErro;
 		}
 		
-		tabuleiro->posicoes[finalX][iFinalY] =  tabuleiro->posicoes[inicialX][iInicialY];
+		tabuleiro->posicoes[finalX][iFinalY].pValor =  tabuleiro->posicoes[inicialX][iInicialY].pValor;
+		tabuleiro->posicoes[finalX][iFinalY].ameacados =  tabuleiro->posicoes[inicialX][iInicialY].ameacados;
+		tabuleiro->posicoes[finalX][iFinalY].ameacantes =  tabuleiro->posicoes[inicialX][iInicialY].ameacantes;
+		
+		tabuleiro->posicoes[inicialX][iInicialY].pValor = NULL;
+		tabuleiro->posicoes[inicialX][iInicialY].ameacados = NULL;
+		tabuleiro->posicoes[inicialX][iInicialY].ameacantes = NULL;
 
 		return ret;
 	}/* Fim função: TAB  &Mover peca no tabuleiro */
@@ -337,10 +343,9 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 				if( tabuleiro->posicoes[lin][col].ameacados != NULL){
 					LIS_DestruirLista(tabuleiro->posicoes[lin][col].ameacados);
 				}
+				
+				//free(&(tabuleiro->posicoes[lin][col]));
 				printf("posicao %d x %d \n", lin, col);
-				
-				free(&(tabuleiro->posicoes[lin][col]));
-				
 				
 			}
 		}		

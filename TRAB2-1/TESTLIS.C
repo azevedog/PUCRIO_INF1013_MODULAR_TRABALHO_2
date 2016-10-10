@@ -9,7 +9,7 @@
 *
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
-*  Autores: avs
+*  Autores: avs, mcs, gbha
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações

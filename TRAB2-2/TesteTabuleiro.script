@@ -32,7 +32,6 @@
 =declararparm   ElemNaoFaz	   int  3
 =declararparm   SubstOutro	   int  4
 
-
 == Criar tabuleiro de 8x8
 =criartabuleiro lin7 lin7 OK
 
@@ -66,13 +65,14 @@
 == Mover peça da posição B2 para fora do tabuleiro
 =moverpeca lin1 col1 9 "i" ForaTabuleiro
 
-== Mover peça da posição A1 para B1
+== Mover peça da posição A1 para C1
 =moverpeca lin0 col0 lin0 col2 OK
 =obterpeca lin0 col2 OK
 
 == Substituir peça preta da posição C6 pela peça branca da posição B6
 =moverpeca lin5 col1 lin5 col2 SubstOutro
 =obterpeca lin5 col2 OK
+=obterpeca lin5 col1 Erro
 
 == Testar obter peça para peça fora do tabuleiro
 =obterpeca 9 "m" ForaTabuleiro
@@ -101,6 +101,4 @@
 
 == Destruir tabuleiro
 =destruirtabuleiro OK
-
-
 // fim
