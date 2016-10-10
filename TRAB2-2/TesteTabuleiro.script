@@ -40,7 +40,7 @@
 =inserirpeca lin5 col1 cor0 OK
 
 == Inserir peça preta na posição C7
-=inserirpeca lin6 col2 cor1 OK
+=inserirpeca lin5 col2 cor1 OK
 
 == Inserir peça preta na posição A1
 =inserirpeca lin0 col0 cor1 OK
@@ -61,16 +61,10 @@
 =moverpeca lin1 col1 9 "i" ForaTabuleiro
 
 == Mover peça da posição A1 para B1
-=moverpeca lin1 col1 lin1 col2 OK
+=moverpeca lin0 col0 lin0 col2 OK
 
 == Substituir peça preta da posição C7 pela peça branca da posição B6
-=moverpeca lin5 col1 lin6 col2 SubstOutro
-
-== Retirar peça da posição C7
-=retirarpeca lin5 col1 OK
-
-== Testar remoção de peça que está fora do tabuleiro
-=retirarpeca 9 "m" ForaTabuleiro
+=moverpeca lin5 col1 lin5 col2 SubstOutro
 
 == Testar obter peça para peça fora do tabuleiro
 =obterpeca 9 "m" ForaTabuleiro

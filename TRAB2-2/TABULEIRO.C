@@ -187,14 +187,22 @@ TAB_tpCondRet TAB_CriarTabuleiro(int numColunas, int numLinhas,
 			return TAB_CondRetElementoNaoFaz;
 		}
 		
-		if(ComparaElementos(tabuleiro->posicoes[inicialX][iInicialY].pValor, tabuleiro->posicoes[finalX][iFinalY].pValor)){
-			ret = TAB_CondRetOK;
+		if((tabuleiro->posicoes[inicialX][iInicialY].pValor) == NULL){
+			return TAB_CondRetErro;
+		}
+		
+		if((tabuleiro->posicoes[finalX][iFinalY].pValor) != NULL){
+			if(ComparaElementos(tabuleiro->posicoes[inicialX][iInicialY].pValor,
+				tabuleiro->posicoes[finalX][iFinalY].pValor)){
+				ret = TAB_CondRetOK;
+			}
+			else{
+				ret = TAB_CondRetSubstituiuOutroElemento;
+			}
 		}
 		else{
-			ret = TAB_CondRetSubstituiuOutroElemento;
+			ret = TAB_CondRetOK;
 		}
-		
-		
 
 		if(!TAB_RetirarPeca(finalX, finalY, tabuleiro)){
 			return TAB_CondRetErro;
